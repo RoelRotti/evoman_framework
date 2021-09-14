@@ -407,7 +407,7 @@ class Environment(object):
 
     # runs game for a single enemy
     def run_single(self,enemyn,pcont,econt):
-
+        print(pcont)
         # sets controllers
         self.pcont = pcont
         self.econt = econt
@@ -599,7 +599,6 @@ class Environment(object):
 
     # checks objective mode
     def play(self,pcont="None",econt="None"):
-
         if self.multiplemode == "yes":
             return self.multiple(pcont,econt)
         else:

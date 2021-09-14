@@ -71,7 +71,6 @@ class player_controller(Controller):
 			release = 1
 		else:
 			release = 0
-
 		return [left, right, jump, shoot, release]
 
 
