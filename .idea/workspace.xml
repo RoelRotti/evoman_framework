@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="23fd3a0d-c103-4521-adf0-4b3ff69a31da" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1.py" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/evoman_logs.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/evoman_logs.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part2.py" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evoman/environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/evoman/environment.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

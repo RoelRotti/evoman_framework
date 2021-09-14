@@ -407,7 +407,6 @@ class Environment(object):
 
     # runs game for a single enemy
     def run_single(self,enemyn,pcont,econt):
-        print(pcont)
         # sets controllers
         self.pcont = pcont
         self.econt = econt

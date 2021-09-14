@@ -14,7 +14,7 @@ if not os.path.exists(experiment_name):
     os.makedirs(experiment_name)
 
 # if headless = True : Will not run visuals (hence be faster)
-headless = False
+headless = True
 if headless:
     os.environ["SDL_VIDEODRIVER"] = "dummy"
 
@@ -34,7 +34,7 @@ env = Environment(experiment_name=experiment_name,
 
 
 from deap import base, creator
-creator.create("FitnessMax", base.Fitness, weights=(-1.0, 1))
+creator.create("FitnessMax", base.Fitness, weights=(1.0,))
 creator.create("Individual", list, fitness=creator.FitnessMax)
 
 import random
@@ -59,29 +59,34 @@ def simulate(env, x):
 
 def evaluate(genome):
     # computes the fitness for each genome
-    genome.fitness = simulate(env, np.array(genome))
+    return simulate(env, np.array(genome)),
 
 toolbox.register("mate", tools.cxTwoPoint)
 toolbox.register("mutate", tools.mutGaussian, mu=0, sigma=1, indpb=0.1)
-toolbox.register("select", tools.selTournament, tournsize=3)
+toolbox.register("select", tools.selTournament, tournsize=2)
 toolbox.register("evaluate", evaluate)
 
 def main():
-    pop = toolbox.population(n=10)
-    CXPB, MUTPB, NGEN = 0.5, 0.2, 10
-    # Evaluate the entire population
+    pop = toolbox.population(n=25)
+    CXPB, MUTPB, NGEN = 0.5, 0.2, 100
+
     fitnesses = map(toolbox.evaluate, pop)
     for ind, fit in zip(pop, fitnesses):
-        ind.fitness = fit
+        ind.fitness.values = fit
 
     for g in range(NGEN):
+        print("\n\n Generation:" + str(g) + "\n\n" )
+
         # Select the next generation individuals
         offspring = toolbox.select(pop, len(pop))
+
         # Clone the selected individuals
-        offspring = map(toolbox.clone, offspring)
+        offspring = list(map(toolbox.clone, offspring))
 
         # Apply crossover and mutation on the offspring
         for child1, child2 in zip(offspring[::2], offspring[1::2]):
+            print(child1.fitness.values)
+            print(child2.fitness.values)
             if random.random() < CXPB:
                 toolbox.mate(child1, child2)
                 del child1.fitness.values
