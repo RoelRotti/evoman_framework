@@ -8,7 +8,6 @@ import numpy
 
 class Controller(object):
 
-
     def control(self, params, cont = None):
 
         action1 = numpy.random.choice([1,0])

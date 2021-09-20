@@ -9,7 +9,7 @@ sys.path.insert(0, 'evoman')
 from environment import Environment
 from demo_controller import player_controller
 
-experiment_name = 'EC_assignment1_part1'
+experiment_name = 'Deap'
 if not os.path.exists(experiment_name):
     os.makedirs(experiment_name)
 
@@ -68,7 +68,7 @@ toolbox.register("evaluate", evaluate)
 
 def main():
     pop = toolbox.population(n=25)
-    CXPB, MUTPB, NGEN = 0.5, 0.2, 100
+    CXPB, MUTPB, NGEN = 0.5, 0.4, 100
 
     fitnesses = map(toolbox.evaluate, pop)
     for ind, fit in zip(pop, fitnesses):
