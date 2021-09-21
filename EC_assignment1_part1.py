@@ -21,7 +21,7 @@ if not os.path.exists(experiment_name):
     os.makedirs(experiment_name)
 
 # if headless = True : Will not run visuals (hence be faster)
-headless = True
+headless = False
 if headless:
     os.environ["SDL_VIDEODRIVER"] = "dummy"
 
@@ -30,7 +30,7 @@ env = Environment_1(experiment_name=experiment_name,
                   playermode="ai",
                   player_controller=player_controller(),
                   # only against 1st enemy (out of 8)
-                  enemies=[1],
+                  enemies=[3],
                   # possible: "normal" or "fastest"
                   speed="fastest",
                   enemymode="static",
@@ -69,6 +69,7 @@ def run(config_path):
     amount_generations = 100
     # winner =  winning genomes
     winner = p.run(fitness_function=eval_genomes, n=amount_generations)
+
 
 
 

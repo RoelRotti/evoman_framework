@@ -17,7 +17,7 @@ class player_controller(Controller):
 
 	def control(self, inputs, controller):
 		# Normalises the input using min-max scaling (taken from demo_controller)
-		inputs = (inputs-min(inputs))/float((max(inputs)-min(inputs)))
+		# inputs = (inputs-min(inputs))/float((max(inputs)-min(inputs)))
 		output = controller.activate(inputs)
 
 		# takes decisions about sprite actions
@@ -47,4 +47,3 @@ class player_controller(Controller):
 			release = 0
 
 		return [left, right, jump, shoot, release]
-
