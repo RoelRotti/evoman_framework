@@ -6,6 +6,7 @@ import sys, os
 import neat
 import numpy as np
 import random
+import copy
 from neat import config
 
 sys.path.insert(0, 'evoman')
@@ -56,13 +57,22 @@ def eval_genomes(genomes, config):
 
 def migration(populations, n_migrations):
     candidates = []
+    # takes random genomes out of a population and stores them in candidates
     for i in range(len(populations)):
         candidates.append(random.sample(populations[i].population.items(), n_migrations))
-    # takes the genomes in a list instead of tuples in a list
-    candidates = [candidate[1] for candidate in candidates[0]]
-    for i in range(len(populations)):
+        # takes the genomes in a list instead of tuples in a list
+        candidates[i] = [candidate[1] for candidate in candidates[i]]
+
+    for j in range(len(populations)):
         for _ in range(n_migrations):
-            populations[i].population[random.choice(list(populations[i].population.keys()))] = random.sample(candidates, 1)[0]
+            a = list(range(len(populations)))
+            a.remove(j)
+            pop = random.choice(a)
+            key = random.choice(list(populations[j].population.keys()))
+            candidate = random.sample(candidates[pop], 1)[0]
+            candidates[pop].remove(candidate)
+            populations[j].population[key] = copy.deepcopy(candidate)
+            populations[j].population[key].key = key
     return populations
 
 
@@ -75,7 +85,6 @@ def run(config_path):
     migration_interval = 1 # for testing
     # How many migrations should be performed each epoch
     number_of_migrations = 3
-
     # building from the configuration path
     config = neat.config.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet,
                                 neat.DefaultStagnation, config_path)
