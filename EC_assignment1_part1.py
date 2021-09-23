@@ -69,6 +69,8 @@ def migration(populations, n_migrations):
             index_populations = list(range(len(populations)))
             index_populations.remove(j)
             chosen_population = random.choice(index_populations)
+            while candidates[chosen_population] == []:
+                chosen_population = random.choice(index_populations)
             candidate = random.sample(candidates[chosen_population], 1)[0]
             candidates[chosen_population].remove(candidate)
             # determines where to insert migrated genome (NOTE 3 genomes are deleted because of this, could be improved)
