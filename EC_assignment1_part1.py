@@ -62,16 +62,20 @@ def migration(populations, n_migrations):
         candidates.append(random.sample(populations[i].population.items(), n_migrations))
         # takes the genomes in a list instead of tuples in a list
         candidates[i] = [candidate[1] for candidate in candidates[i]]
-
+    # modifies populations by migrating genomes to other populations
     for j in range(len(populations)):
         for _ in range(n_migrations):
-            a = list(range(len(populations)))
-            a.remove(j)
-            pop = random.choice(a)
+            # chooses candidates from genomes that are picked out from other populations
+            index_populations = list(range(len(populations)))
+            index_populations.remove(j)
+            chosen_population = random.choice(index_populations)
+            candidate = random.sample(candidates[chosen_population], 1)[0]
+            candidates[chosen_population].remove(candidate)
+            # determines where to insert migrated genome (NOTE 3 genomes are deleted because of this, could be improved)
             key = random.choice(list(populations[j].population.keys()))
-            candidate = random.sample(candidates[pop], 1)[0]
-            candidates[pop].remove(candidate)
+            # without making a deep copy, unwanted genomes are modified
             candidate = copy.deepcopy(candidate)
+            # whole genome cannot be transferred directly so key,nodes and connections are seperately
             populations[j].population[key].connections = candidate.connections
             populations[j].population[key].nodes = candidate.nodes
             populations[j].population[key].key = key
@@ -80,11 +84,11 @@ def migration(populations, n_migrations):
 
 def run(config_path):
     # To specify how many islands to use
-    number_of_islands = 2
+    number_of_islands = 4
     # the amount of generations it is run for
-    amount_generations = 10
+    amount_generations = 100
     # After how many generations an individual migrates
-    migration_interval = 1 # for testing
+    migration_interval = 25 # for testing
     # How many migrations should be performed each epoch
     number_of_migrations = 3
     # building from the configuration path
