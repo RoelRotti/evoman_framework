@@ -7,18 +7,18 @@ import matplotlib.pyplot as plt
 results_frame = pd.DataFrame(columns=['Enemy', 'Fitness', 'Player life', 'Enemy life', 'Time'])
 method = input("Neat or Deap? (n/d)")
 
-if method == 'n':
-    file = 'EC_assignment1_part1/evoman_logs.txt'
-else:
-    file = 'Deap/evoman_logs.txt'
+file = 'EC_assignment1_part1/evoman_logs.txt'
 
 with open(file) as f:
+    numbers = r"[-+]?\d*\.\d+|\d+"
     for line in f:
+        if line.startswith('Island:'):
+            island = re.findall(numbers, line)
         if line.startswith('RUN:'):
-            numbers = r"[-+]?\d*\.\d+|\d+"
             results = re.findall(numbers, line)
             results = [float(i) for i in results]
             result_series = pd.Series(results, index=results_frame.columns)
+            result_series['island'] = island
             results_frame = results_frame.append(result_series, ignore_index=True)
 
 analysis_frame = pd.DataFrame()

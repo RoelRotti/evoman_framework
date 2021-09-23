@@ -83,6 +83,7 @@ def migration(populations, n_migrations):
 
 
 def run(config_path):
+
     # To specify how many islands to use
     number_of_islands = 4
     # the amount of generations it is run for
@@ -106,7 +107,7 @@ def run(config_path):
     # let generations play and migrate
     for i in range(int(amount_generations/migration_interval)):
         for j in range(number_of_islands):
-            print(f"\n ****** Running Island {j} ******")
+            env.print_logs(f"Island:{j}")
             populations[j].run(fitness_function=eval_genomes, n=migration_interval)
         populations = migration(populations, number_of_migrations)
 
