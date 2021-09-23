@@ -71,7 +71,9 @@ def migration(populations, n_migrations):
             key = random.choice(list(populations[j].population.keys()))
             candidate = random.sample(candidates[pop], 1)[0]
             candidates[pop].remove(candidate)
-            populations[j].population[key] = copy.deepcopy(candidate)
+            candidate = copy.deepcopy(candidate)
+            populations[j].population[key].connections = candidate.connections
+            populations[j].population[key].nodes = candidate.nodes
             populations[j].population[key].key = key
     return populations
 
@@ -80,7 +82,7 @@ def run(config_path):
     # To specify how many islands to use
     number_of_islands = 2
     # the amount of generations it is run for
-    amount_generations = 10 
+    amount_generations = 10
     # After how many generations an individual migrates
     migration_interval = 1 # for testing
     # How many migrations should be performed each epoch
@@ -100,6 +102,7 @@ def run(config_path):
     # let generations play and migrate
     for i in range(int(amount_generations/migration_interval)):
         for j in range(number_of_islands):
+            print(f"\n ****** Running Island {j} ******")
             populations[j].run(fitness_function=eval_genomes, n=migration_interval)
         populations = migration(populations, number_of_migrations)
 

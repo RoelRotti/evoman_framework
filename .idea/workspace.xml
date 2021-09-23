@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="23fd3a0d-c103-4521-adf0-4b3ff69a31da" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EC_assignment1_part1.py" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/evoman_logs.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/evoman_logs.txt" afterDir="false" />
     </list>
@@ -199,5 +200,28 @@
       <updated>1631603870145</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EC_assignment1_part1.py</url>
+          <line>63</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EC_assignment1_part1.py</url>
+          <line>106</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
