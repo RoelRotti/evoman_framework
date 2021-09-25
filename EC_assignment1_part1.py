@@ -70,12 +70,11 @@ def migration(populations, n_migrations):
     for j in range(len(populations)):
         for _ in range(n_migrations):
             # chooses candidates from genomes that are picked out from other populations
-            index_populations = list(range(len(populations)))
-            index_populations.remove(j)
-            chosen_population = random.choice(index_populations)
-            while candidates[chosen_population] == []:
-                print("in while loop migration")
-                chosen_population = random.choice(index_populations)
+
+            chosen_population = j+1
+            if j+1 >= len(populations):
+                chosen_population = 0
+
             candidate = random.sample(candidates[chosen_population], 1)[0]
             candidates[chosen_population].remove(candidate)
             # determines where to insert migrated genome (NOTE 3 genomes are deleted because of this, could be improved)
@@ -89,14 +88,16 @@ def migration(populations, n_migrations):
     return populations
 
 
+
 def run(config_path):#, df, n_run):
 
     # To specify how many islands to use
     number_of_islands = 4
+
     # the amount of generations it is run for
-    amount_generations = 100
+    amount_generations = 20
     # After how many generations an individual migrates
-    migration_interval = 25 # for testing
+    migration_interval = 6 # for testing
     # How many migrations should be performed each epoch
     number_of_migrations = 3
     # building from the configuration path
@@ -118,7 +119,7 @@ def run(config_path):#, df, n_run):
     # let generations play and migrate
     for i in range(int(amount_generations/migration_interval)):
         for j in range(number_of_islands):
-            env.print_logs(f"Island:{j}")
+            env.print_logs(f"Island:{j+1}")
             populations[j].run(fitness_function=eval_genomes, n=migration_interval)
         populations = migration(populations, number_of_migrations)
 
@@ -157,4 +158,12 @@ if __name__ == "__main__":
     local_dir = os.path.dirname(__file__)
     # finds the absolute path of config-EC.txt
     config_path = os.path.join(local_dir, "config-EC1.txt")
-    run(config_path)
+
+    for i in range(10):
+        run(config_path)
+        # open both files
+        with open('EC_assignment1_part1/evoman_logs.txt', 'r+') as firstfile, open(f'EC_assignment1_part1/enemy{env.enemies[0]}_{number_of_islands}islands_run{i+1}.txt', 'a') as secondfile:
+            for line in firstfile:
+                secondfile.write(line)
+            firstfile.truncate(0)
+

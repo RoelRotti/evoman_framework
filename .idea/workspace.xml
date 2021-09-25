@@ -5,6 +5,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EC_assignment1_part1.py" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/evoman_logs.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/evoman_logs.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analyze.py" beforeDir="false" afterPath="$PROJECT_DIR$/analyze.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-EC1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config-EC1.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +32,12 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/EC_assignment1_part1.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/EC_assignment1_part1" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ywema\Documents\Artificial Intelligence Msc\Year2\Periode1\Evolutionary Computing\evoman_framework\EC_assignment1_part1" />
+    </key>
   </component>
   <component name="RunManager" selected="Python.EC_assignment1_part1">
     <configuration name="EC_assignment1_part1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -203,6 +210,13 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/analyze.py</url>
+          <line>22</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -211,11 +225,5 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="PythonConfigurationType">
-        <watch expression="candidates" />
-        <watch expression="candidate" />
-      </configuration>
-    </watches-manager>
   </component>
 </project>
