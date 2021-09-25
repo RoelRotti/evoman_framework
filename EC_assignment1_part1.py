@@ -8,6 +8,9 @@ import numpy as np
 import random
 import copy
 from neat import config
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt # for data visualization
 
 sys.path.insert(0, 'evoman')
 from environment import Environment
@@ -54,6 +57,7 @@ def eval_genomes(genomes, config):
         # computes the fitness for each genome
         genome.fitness = simulate(env, net)
 
+# TODO: Ask Yoes: do the migrations happen in rotation? (anti-)clockwise e.g.
 
 def migration(populations, n_migrations):
     candidates = []
@@ -70,6 +74,7 @@ def migration(populations, n_migrations):
             index_populations.remove(j)
             chosen_population = random.choice(index_populations)
             while candidates[chosen_population] == []:
+                print("in while loop migration")
                 chosen_population = random.choice(index_populations)
             candidate = random.sample(candidates[chosen_population], 1)[0]
             candidates[chosen_population].remove(candidate)
@@ -84,7 +89,7 @@ def migration(populations, n_migrations):
     return populations
 
 
-def run(config_path):
+def run(config_path):#, df, n_run):
 
     # To specify how many islands to use
     number_of_islands = 4
@@ -99,12 +104,16 @@ def run(config_path):
                                 neat.DefaultStagnation, config_path)
 
     populations = []
+    stats = []
 
     # creating populations
     for j in range(number_of_islands):
         populations.append(neat.Population(config))
         populations[j].add_reporter(neat.StdOutReporter(True))
-        populations[j].add_reporter(neat.StatisticsReporter())
+        stats_single = neat.StatisticsReporter()
+        stats.append(stats_single)
+        #populations[j].add_reporter(neat.StatisticsReporter())
+        populations[j].add_reporter(stats_single)
 
     # let generations play and migrate
     for i in range(int(amount_generations/migration_interval)):
@@ -113,6 +122,35 @@ def run(config_path):
             populations[j].run(fitness_function=eval_genomes, n=migration_interval)
         populations = migration(populations, number_of_migrations)
 
+    # Gather fittest genome for testing repeatedly 5 times (for boxplot)
+    best_genomes = []
+    for j in range(number_of_islands):
+        best_genomes.append( (stats[j].best_genome(), stats[j].best_genome().fitness) )
+    #print('best_genomes     =   ', best_genomes)
+    # Retrieve individual with best fitness
+    best_genome = max(best_genomes,key=lambda item:item[1])[0]
+    #[c.fitness for c in stats[i].most_fit_genomes]
+    #print('best_genome     =   ', best_genome)
+    #print('best_genome.fitness     =   ', best_genome.fitness)
+
+    # Test 5 times:
+    best_genome_fitness = []
+    for test_round in range(5):
+        config_path_single = os.path.join(local_dir, "config-single.txt")
+        config_single = neat.config.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet,
+                                neat.DefaultStagnation, config_path_single)
+        # # creates a neural network
+        net = neat.nn.FeedForwardNetwork.create(best_genome, config_single)
+        [f, p, e, t] = env.play(pcont=net)
+        best_genome_fitness.append(f)
+        print("best_genome_fitness  =   ", best_genome_fitness)
+
+    # Calculate the mean of the fitnesses of 5 test runs of best genome after 1 run
+    mean_best_fitness = np.mean(best_genome_fitness)
+
+    #print("best_genome_fitness  =   ", best_genome_fitness)
+
+    return mean_best_fitness
 
 if __name__ == "__main__":
     # gives us the path to the directory we are in 
