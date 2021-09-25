@@ -5,7 +5,6 @@ import re
 import matplotlib.pyplot as plt
 
 results_frame = pd.DataFrame(columns=['Enemy', 'Fitness', 'Player life', 'Enemy life', 'Time'])
-method = input("Neat or Deap? (n/d)")
 
 file = 'EC_assignment1_part1/evoman_logs.txt'
 
