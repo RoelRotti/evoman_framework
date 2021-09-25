@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="23fd3a0d-c103-4521-adf0-4b3ff69a31da" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1.py" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/evoman_logs.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/evoman_logs.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/analyze.py" beforeDir="false" afterPath="$PROJECT_DIR$/analyze.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-EC1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config-EC1.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +37,7 @@
       <recent name="C:\Users\Ywema\Documents\Artificial Intelligence Msc\Year2\Periode1\Evolutionary Computing\evoman_framework\EC_assignment1_part1" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.EC_assignment1_part1">
+  <component name="RunManager" selected="Python.analyze">
     <configuration name="EC_assignment1_part1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -191,8 +189,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.EC_assignment1_part1" />
         <item itemvalue="Python.analyze" />
+        <item itemvalue="Python.EC_assignment1_part1" />
         <item itemvalue="Python.EC_assignment1_part2" />
       </list>
     </recent_temporary>
@@ -210,13 +208,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/analyze.py</url>
-          <line>22</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
