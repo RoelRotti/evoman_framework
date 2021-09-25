@@ -8,6 +8,10 @@ import numpy as np
 import random
 import copy
 from neat import config
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt # for data visualization
+import pickle
 
 sys.path.insert(0, 'evoman')
 from environment import Environment
@@ -54,6 +58,7 @@ def eval_genomes(genomes, config):
         # computes the fitness for each genome
         genome.fitness = simulate(env, net)
 
+# TODO: Ask Yoes: do the migrations happen in rotation? (anti-)clockwise e.g.
 
 def migration(populations, n_migrations):
     candidates = []
@@ -66,9 +71,11 @@ def migration(populations, n_migrations):
     for j in range(len(populations)):
         for _ in range(n_migrations):
             # chooses candidates from genomes that are picked out from other populations
+
             chosen_population = j+1
             if j+1 >= len(populations):
                 chosen_population = 0
+
             candidate = random.sample(candidates[chosen_population], 1)[0]
             candidates[chosen_population].remove(candidate)
             # determines where to insert migrated genome (NOTE 3 genomes are deleted because of this, could be improved)
@@ -82,14 +89,16 @@ def migration(populations, n_migrations):
     return populations
 
 
-# To specify how many islands to use
-number_of_islands = 4
 
-def run(config_path):
+def run(config_path):#, df, n_run):
+
+    # To specify how many islands to use
+    number_of_islands = 2#4
+
     # the amount of generations it is run for
-    amount_generations = 20
+    amount_generations = 4#20
     # After how many generations an individual migrates
-    migration_interval = 6 # for testing
+    migration_interval = 2#6 # for testing
     # How many migrations should be performed each epoch
     number_of_migrations = 3
     # building from the configuration path
@@ -97,12 +106,16 @@ def run(config_path):
                                 neat.DefaultStagnation, config_path)
 
     populations = []
+    stats = []
 
     # creating populations
     for j in range(number_of_islands):
         populations.append(neat.Population(config))
         populations[j].add_reporter(neat.StdOutReporter(True))
-        populations[j].add_reporter(neat.StatisticsReporter())
+        stats_single = neat.StatisticsReporter()
+        stats.append(stats_single)
+        #populations[j].add_reporter(neat.StatisticsReporter())
+        populations[j].add_reporter(stats_single)
 
     # let generations play and migrate
     for i in range(int(amount_generations/migration_interval)):
@@ -111,16 +124,66 @@ def run(config_path):
             populations[j].run(fitness_function=eval_genomes, n=migration_interval)
         populations = migration(populations, number_of_migrations)
 
+    # Gather fittest genome for testing repeatedly 5 times (for boxplot)
+    best_genomes = []
+    for j in range(number_of_islands):
+        best_genomes.append( (stats[j].best_genome(), stats[j].best_genome().fitness) )
+    #print('best_genomes     =   ', best_genomes)
+    # Retrieve individual with best fitness
+    best_genome = max(best_genomes,key=lambda item:item[1])[0]
+    #[c.fitness for c in stats[i].most_fit_genomes]
+    #print('best_genome     =   ', best_genome)
+    #print('best_genome.fitness     =   ', best_genome.fitness)
+
+    # Test 5 times:
+    best_genome_fitness = []
+    for test_round in range(5):
+        config_path_single = os.path.join(local_dir, "config-single.txt")
+        config_single = neat.config.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet,
+                                neat.DefaultStagnation, config_path_single)
+        # # creates a neural network
+        net = neat.nn.FeedForwardNetwork.create(best_genome, config_single)
+        [f, p, e, t] = env.play(pcont=net)
+        best_genome_fitness.append(f)
+        print("best_genome_fitness  =   ", best_genome_fitness)
+
+    # Calculate the mean of the fitnesses of 5 test runs of best genome after 1 run
+    mean_best_fitness = np.mean(best_genome_fitness)
+
+    #print("best_genome_fitness  =   ", best_genome_fitness)
+
+    return mean_best_fitness
 
 if __name__ == "__main__":
     # gives us the path to the directory we are in 
     local_dir = os.path.dirname(__file__)
     # finds the absolute path of config-EC.txt
     config_path = os.path.join(local_dir, "config-EC1.txt")
-    for i in range(10):
-        run(config_path)
+
+    number_of_runs = 2
+
+    # Deze miste volgens mij nog?
+    number_of_islands = 2
+
+    mean_fitnesses_boxplot = []
+    for i in range(number_of_runs):
+        mean_fit_best_genome = run(config_path)
+        mean_fitnesses_boxplot.append(mean_fit_best_genome)
         # open both files
         with open('EC_assignment1_part1/evoman_logs.txt', 'r+') as firstfile, open(f'EC_assignment1_part1/enemy{env.enemies[0]}_{number_of_islands}islands_run{i+1}.txt', 'a') as secondfile:
             for line in firstfile:
                 secondfile.write(line)
             firstfile.truncate(0)
+
+    ax = sns.boxplot(y=mean_fitnesses_boxplot).set_title("Fitness of best genome from {} runs".format(number_of_runs)) 
+    plt.show()
+
+    # Open the file for writing
+    F = open('EC_assignment1_part1/data_boxplots.txt', 'w')
+    # Use a list comprehension to convert the 
+    # numbers to strings then join all strings 
+    # using a new line
+    F.write("\n".join([str(x) for x in mean_fitnesses_boxplot]))
+    # Close the file
+    F.close()
+
