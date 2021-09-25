@@ -11,6 +11,7 @@ from neat import config
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt # for data visualization
+import pickle
 
 sys.path.insert(0, 'evoman')
 from environment import Environment
@@ -92,12 +93,12 @@ def migration(populations, n_migrations):
 def run(config_path):#, df, n_run):
 
     # To specify how many islands to use
-    number_of_islands = 4
+    number_of_islands = 2#4
 
     # the amount of generations it is run for
-    amount_generations = 20
+    amount_generations = 4#20
     # After how many generations an individual migrates
-    migration_interval = 6 # for testing
+    migration_interval = 2#6 # for testing
     # How many migrations should be performed each epoch
     number_of_migrations = 3
     # building from the configuration path
@@ -159,11 +160,30 @@ if __name__ == "__main__":
     # finds the absolute path of config-EC.txt
     config_path = os.path.join(local_dir, "config-EC1.txt")
 
-    for i in range(10):
-        run(config_path)
+    number_of_runs = 2
+
+    # Deze miste volgens mij nog?
+    number_of_islands = 2
+
+    mean_fitnesses_boxplot = []
+    for i in range(number_of_runs):
+        mean_fit_best_genome = run(config_path)
+        mean_fitnesses_boxplot.append(mean_fit_best_genome)
         # open both files
         with open('EC_assignment1_part1/evoman_logs.txt', 'r+') as firstfile, open(f'EC_assignment1_part1/enemy{env.enemies[0]}_{number_of_islands}islands_run{i+1}.txt', 'a') as secondfile:
             for line in firstfile:
                 secondfile.write(line)
             firstfile.truncate(0)
+
+    ax = sns.boxplot(y=mean_fitnesses_boxplot).set_title("Fitness of best genome from {} runs".format(number_of_runs)) 
+    plt.show()
+
+    # Open the file for writing
+    F = open('EC_assignment1_part1/data_boxplots.txt', 'w')
+    # Use a list comprehension to convert the 
+    # numbers to strings then join all strings 
+    # using a new line
+    F.write("\n".join([str(x) for x in mean_fitnesses_boxplot]))
+    # Close the file
+    F.close()
 
