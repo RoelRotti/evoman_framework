@@ -36,7 +36,7 @@ env = Environment_1(experiment_name=experiment_name,
                   playermode="ai",
                   player_controller=player_controller(),
                   # only against 1st enemy (out of 8)
-                  enemies=[3],
+                  enemies=[2],
                   # possible: "normal" or "fastest"
                   speed="fastest",
                   enemymode="static",
@@ -58,8 +58,6 @@ def eval_genomes(genomes, config):
         # computes the fitness for each genome
         genome.fitness = simulate(env, net)
 
-# TODO: Ask Yoes: do the migrations happen in rotation? (anti-)clockwise e.g.
-
 def migration(populations, n_migrations):
     candidates = []
     # takes random genomes out of a population and stores them in candidates
@@ -71,7 +69,6 @@ def migration(populations, n_migrations):
     for j in range(len(populations)):
         for _ in range(n_migrations):
             # chooses candidates from genomes that are picked out from other populations
-
             chosen_population = j+1
             if j+1 >= len(populations):
                 chosen_population = 0
@@ -89,16 +86,15 @@ def migration(populations, n_migrations):
     return populations
 
 
+# To specify how many islands to use
+number_of_islands = 1
+number_of_runs = 10
 
 def run(config_path):#, df, n_run):
-
-    # To specify how many islands to use
-    number_of_islands = 2#4
-
     # the amount of generations it is run for
-    amount_generations = 4#20
+    amount_generations = 20#20
     # After how many generations an individual migrates
-    migration_interval = 2#6 # for testing
+    migration_interval = 6 #6 # for testing
     # How many migrations should be performed each epoch
     number_of_migrations = 3
     # building from the configuration path
@@ -154,16 +150,15 @@ def run(config_path):#, df, n_run):
 
     return mean_best_fitness
 
+
 if __name__ == "__main__":
     # gives us the path to the directory we are in 
     local_dir = os.path.dirname(__file__)
     # finds the absolute path of config-EC.txt
     config_path = os.path.join(local_dir, "config-EC1.txt")
 
-    number_of_runs = 2
-
     # Deze miste volgens mij nog?
-    number_of_islands = 2
+    # number_of_islands = 2
 
     mean_fitnesses_boxplot = []
     for i in range(number_of_runs):
