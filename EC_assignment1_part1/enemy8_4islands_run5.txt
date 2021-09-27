@@ -3623,13 +3623,3 @@ RUN: run status: enemy: 8; fitness: 65.83458214576858; player life: 0; enemy lif
 RUN: run status: enemy: 8; fitness: 11.805594608895328; player life: 0; enemy life: 80.0; time: 490
 
 RUN: run status: enemy: 8; fitness: 12.11112204166712; player life: 0; enemy life: 80.0; time: 361
-
-RUN: run status: enemy: 8; fitness: 92.7928282285399; player life: 82.00000000000017; enemy life: 0; time: 223
-
-RUN: run status: enemy: 8; fitness: 92.7928282285399; player life: 82.00000000000017; enemy life: 0; time: 223
-
-RUN: run status: enemy: 8; fitness: 92.7928282285399; player life: 82.00000000000017; enemy life: 0; time: 223
-
-RUN: run status: enemy: 8; fitness: 92.7928282285399; player life: 82.00000000000017; enemy life: 0; time: 223
-
-RUN: run status: enemy: 8; fitness: 92.7928282285399; player life: 82.00000000000017; enemy life: 0; time: 223
