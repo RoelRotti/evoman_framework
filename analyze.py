@@ -86,7 +86,7 @@ plt.plot(analysis_frame_no_islands["average"])
 plt.fill_between(analysis_frame_no_islands.index, analysis_frame_no_islands["ub"], analysis_frame_no_islands["lb"],
                  facecolor='red', alpha=0.5, interpolate=True)
 
-plt.title("Evolving fitness over time")
+plt.title(f"Evolving fitness over time against enemy {enemy}")
 plt.ylabel("Fitness")
 plt.xlabel("Generation")
 plt.grid()
