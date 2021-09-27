@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from EC_assignment1_part1 import number_of_islands, number_of_runs
 
 enemy = 2
-population_size = 100
+population_size = 22
 
 # ############################# 4 ISLANDS ############################## #
 
@@ -45,7 +45,7 @@ analysis_frame["average"] = by_row_index_means.mean()["Fitness"]
 analysis_frame["sd"] = by_row_index_means.std()["Fitness"]
 analysis_frame["lb"] = analysis_frame["average"] - analysis_frame["sd"]
 analysis_frame["ub"] = analysis_frame["average"] + analysis_frame["sd"]
-analysis_frame = analysis_frame[0:-5].groupby(np.arange(len(analysis_frame[0:-5]))//population_size).mean()
+analysis_frame = analysis_frame.groupby(np.arange(len(analysis_frame))//population_size).mean()
 
 
 # ############################# NO ISLANDS ############################## #
@@ -76,7 +76,7 @@ analysis_frame_no_islands["average"] = by_row_index_means.mean()["Fitness"]
 analysis_frame_no_islands["sd"] = by_row_index_means.std()["Fitness"]
 analysis_frame_no_islands["lb"] = analysis_frame_no_islands["average"] - analysis_frame_no_islands["sd"]
 analysis_frame_no_islands["ub"] = analysis_frame_no_islands["average"] + analysis_frame_no_islands["sd"]
-analysis_frame_no_islands = analysis_frame_no_islands[0:-5].groupby(np.arange(len(analysis_frame_no_islands[0:-5]))//(population_size*4)).mean()
+analysis_frame_no_islands = analysis_frame_no_islands.groupby(np.arange(len(analysis_frame_no_islands))//(population_size*4)).mean()
 
 plt.plot(analysis_frame["average"])
 plt.fill_between(analysis_frame.index, analysis_frame["ub"], analysis_frame["lb"], facecolor='blue', alpha=0.5,
@@ -86,10 +86,10 @@ plt.plot(analysis_frame_no_islands["average"])
 plt.fill_between(analysis_frame_no_islands.index, analysis_frame_no_islands["ub"], analysis_frame_no_islands["lb"],
                  facecolor='red', alpha=0.5, interpolate=True)
 
-plt.title("Evolving fitness over time")
+plt.title(f"Evolving fitness over time against enemy {enemy}")
 plt.ylabel("Fitness")
 plt.xlabel("Generation")
 plt.grid()
 plt.legend(labels=[f"4 islands", "no islands"])
 plt.show()
-plt.savefig('results.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'EC_assignment1_part1/enemy{enemy}_lineplot.png', dpi=300, bbox_inches='tight')
