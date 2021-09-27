@@ -36,7 +36,7 @@ env = Environment_1(experiment_name=experiment_name,
                   playermode="ai",
                   player_controller=player_controller(),
                   # only against 1st enemy (out of 8)
-                  enemies=[2],
+                  enemies=[5],
                   # possible: "normal" or "fastest"
                   speed="fastest",
                   enemymode="static",
@@ -141,7 +141,7 @@ def run(config_path):#, df, n_run):
         net = neat.nn.FeedForwardNetwork.create(best_genome, config_single)
         [f, p, e, t] = env.play(pcont=net)
         best_genome_fitness.append(f)
-        print("best_genome_fitness  =   ", best_genome_fitness)
+        #print("best_genome_fitness  =   ", best_genome_fitness)
 
     # Calculate the mean of the fitnesses of 5 test runs of best genome after 1 run
     mean_best_fitness = np.mean(best_genome_fitness)
@@ -174,7 +174,7 @@ if __name__ == "__main__":
     plt.show()
 
     # Open the file for writing
-    F = open('EC_assignment1_part1/data_boxplots.txt', 'w')
+    F = open('EC_assignment1_part1/enemy{}_{}islands_data_boxplots_.txt'.format(env.enemies[0], number_of_islands), 'w')
     # Use a list comprehension to convert the 
     # numbers to strings then join all strings 
     # using a new line
