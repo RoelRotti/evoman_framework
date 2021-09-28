@@ -4,7 +4,7 @@ import re
 import matplotlib.pyplot as plt
 from EC_assignment1_part1 import number_of_islands, number_of_runs
 
-enemy = 8
+enemy = 2
 population_size = 22
 
 # ############################# 4 ISLANDS ############################## #
@@ -86,7 +86,7 @@ plt.plot(analysis_frame_no_islands["average"])
 plt.fill_between(analysis_frame_no_islands.index, analysis_frame_no_islands["ub"], analysis_frame_no_islands["lb"],
                  facecolor='red', alpha=0.5, interpolate=True)
 
-plt.title(f"Agent Gitness Over Time Against Enemy {enemy}")
+plt.title(f"Mean Agent Fitness Against Enemy {enemy}")
 plt.ylabel("Fitness")
 plt.xlabel("Generation")
 plt.grid()
