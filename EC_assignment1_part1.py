@@ -36,7 +36,7 @@ env = Environment_1(experiment_name=experiment_name,
                   playermode="ai",
                   player_controller=player_controller(),
                   # only against 1st enemy (out of 8)
-                  enemies=[8],
+                  enemies=[2],
                   # possible: "normal" or "fastest"
                   speed="fastest",
                   enemymode="static",
@@ -115,7 +115,7 @@ def run(config_path):#, df, n_run):
         populations[j].add_reporter(stats_single)
 
     # let generations play and migrate
-    for i in range(int(amount_generations/migration_interval+amount_generations%migration_interval)):
+    for i in range(int(amount_generations/migration_interval)):
         for j in range(number_of_islands):
             env.print_logs(f"Island:{j+1}")
             populations[j].run(fitness_function=eval_genomes, n=migration_interval)
