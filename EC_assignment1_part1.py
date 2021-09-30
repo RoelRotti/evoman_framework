@@ -27,7 +27,7 @@ if not os.path.exists(experiment_name):
     os.makedirs(experiment_name)
 
 # if headless = True : Will not run visuals (hence be faster)
-headless = False
+headless = True
 if headless:
     os.environ["SDL_VIDEODRIVER"] = "dummy"
 
@@ -36,7 +36,7 @@ env = Environment_1(experiment_name=experiment_name,
                   playermode="ai",
                   player_controller=player_controller(),
                   # only against 1st enemy (out of 8)
-                  enemies=[2],
+                  enemies=[8],
                   # possible: "normal" or "fastest"
                   speed="fastest",
                   enemymode="static",
@@ -88,7 +88,7 @@ def migration(populations, n_migrations):
 
 # To specify how many islands to use
 
-number_of_islands = 1
+number_of_islands = 4
 number_of_runs = 10
 
 def run(config_path):#, df, n_run):
