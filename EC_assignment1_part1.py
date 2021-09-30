@@ -36,13 +36,13 @@ env = Environment_1(experiment_name=experiment_name,
                   playermode="ai",
                   player_controller=player_controller(),
                   # only against 1st enemy (out of 8)
-                  enemies=[2],
+                  enemies=[8],
                   # possible: "normal" or "fastest"
                   speed="fastest",
                   enemymode="static",
+                  randomini = "yes",
                   # must be 2 according to assignment
-                  level=2,
-                  randomini="yes")
+                  level=2)
 
 # genome : current population
 
@@ -73,7 +73,6 @@ def migration(populations, n_migrations):
             chosen_population = j+1
             if j+1 >= len(populations):
                 chosen_population = 0
-
             candidate = random.sample(candidates[chosen_population], 1)[0]
             candidates[chosen_population].remove(candidate)
             # determines where to insert migrated genome (NOTE 3 genomes are deleted because of this, could be improved)
@@ -88,7 +87,8 @@ def migration(populations, n_migrations):
 
 
 # To specify how many islands to use
-number_of_islands = 4
+
+number_of_islands = 1
 number_of_runs = 10
 
 def run(config_path):#, df, n_run):
@@ -115,7 +115,7 @@ def run(config_path):#, df, n_run):
         populations[j].add_reporter(stats_single)
 
     # let generations play and migrate
-    for i in range(int(amount_generations/migration_interval)):
+    for i in range(int(amount_generations/migration_interval+amount_generations%migration_interval)):
         for j in range(number_of_islands):
             env.print_logs(f"Island:{j+1}")
             populations[j].run(fitness_function=eval_genomes, n=migration_interval)

@@ -78,7 +78,7 @@ analysis_frame_no_islands["sd"] = by_row_index_means.std()["Fitness"]
 analysis_frame_no_islands["lb"] = analysis_frame_no_islands["average"] - analysis_frame_no_islands["sd"]
 analysis_frame_no_islands["ub"] = analysis_frame_no_islands["average"] + analysis_frame_no_islands["sd"]
 analysis_frame_no_islands = analysis_frame_no_islands.groupby(np.arange(len(analysis_frame_no_islands))//(population_size*4)).mean()
-
+plt.rcParams['font.size'] = '13'
 plt.plot(analysis_frame["average"])
 plt.fill_between(analysis_frame.index, analysis_frame["ub"], analysis_frame["lb"], facecolor='blue', alpha=0.5,
                  interpolate=True)
@@ -87,10 +87,12 @@ plt.plot(analysis_frame_no_islands["average"])
 plt.fill_between(analysis_frame_no_islands.index, analysis_frame_no_islands["ub"], analysis_frame_no_islands["lb"],
                  facecolor='red', alpha=0.5, interpolate=True)
 
-plt.title(f"Evolving fitness over time against enemy {enemy}")
+plt.title(f"Mean Agent Fitness Against Enemy {enemy}")
 plt.ylabel("Fitness")
 plt.xlabel("Generation")
 plt.grid()
 plt.legend(labels=[f"4 islands", "no islands"])
+plt.xlim(0,20)
+plt.xticks(np.arange(0, 21, 1.0))
+plt.savefig(f"EC_assignment1_part1/enemy{enemy}_lineplot.pdf", dpi=300, bbox_inches='tight')
 plt.show()
-plt.savefig(f'EC_assignment1_part1/enemy{enemy}_lineplot.png', dpi=300, bbox_inches='tight')
