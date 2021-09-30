@@ -27,7 +27,7 @@ if not os.path.exists(experiment_name):
     os.makedirs(experiment_name)
 
 # if headless = True : Will not run visuals (hence be faster)
-headless = True
+headless = False
 if headless:
     os.environ["SDL_VIDEODRIVER"] = "dummy"
 
@@ -41,7 +41,8 @@ env = Environment_1(experiment_name=experiment_name,
                   speed="fastest",
                   enemymode="static",
                   # must be 2 according to assignment
-                  level=2)
+                  level=2,
+                  randomini="yes")
 
 # genome : current population
 
@@ -87,7 +88,7 @@ def migration(populations, n_migrations):
 
 
 # To specify how many islands to use
-number_of_islands = 1
+number_of_islands = 4
 number_of_runs = 10
 
 def run(config_path):#, df, n_run):

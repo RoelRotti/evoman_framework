@@ -4,8 +4,9 @@ import re
 import matplotlib.pyplot as plt
 from EC_assignment1_part1 import number_of_islands, number_of_runs
 
-enemy = 8
+enemy = 2
 population_size = 22
+number_of_islands = 4
 
 # ############################# 4 ISLANDS ############################## #
 
