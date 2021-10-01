@@ -3605,13 +3605,3 @@ RUN: run status: enemy: 5; fitness: 93.93679627126203; player life: 92.200000000
 RUN: run status: enemy: 5; fitness: 91.28835578817424; player life: 71.80000000000027; enemy life: 0; time: 362
 
 RUN: run status: enemy: 5; fitness: 93.3928282285399; player life: 88.00000000000011; enemy life: 0; time: 223
-
-RUN: run status: enemy: 5; fitness: 92.06889138314544; player life: 73.00000000000026; enemy life: 0; time: 187
-
-RUN: run status: enemy: 5; fitness: 86.65003982910277; player life: 24.400000000000247; enemy life: 0; time: 327
-
-RUN: run status: enemy: 5; fitness: 88.92206684551657; player life: 47.8000000000003; enemy life: 0; time: 350
-
-RUN: run status: enemy: 5; fitness: 90.61106227384334; player life: 61.000000000000334; enemy life: 0; time: 242
-
-RUN: run status: enemy: 5; fitness: 90.31936107665805; player life: 58.00000000000033; enemy life: 0; time: 240
