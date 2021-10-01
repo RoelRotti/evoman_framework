@@ -36,7 +36,7 @@ env = Environment_1(experiment_name=experiment_name,
                   playermode="ai",
                   player_controller=player_controller(),
                   # only against 1st enemy (out of 8)
-                  enemies=[2],
+                  enemies=[8],
                   # possible: "normal" or "fastest"
                   speed="fastest",
                   enemymode="static",
