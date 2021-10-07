@@ -232,7 +232,7 @@ for i in range(ini_g+1, gens):
     fit_pop[best] = float(evaluate(np.array([pop[best] ]))[0]) # repeats best eval, for stability issues
     best_sol = fit_pop[best]
 
-    # selection
+    # selection (probabilistic based on normalized fitnesses)
     fit_pop_cp = fit_pop
     fit_pop_norm =  np.array(list(map(lambda y: norm(y,fit_pop_cp), fit_pop))) # avoiding negative probabilities, as fitness is ranges from negative numbers
     probs = (fit_pop_norm)/(fit_pop_norm).sum()

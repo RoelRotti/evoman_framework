@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import re
 import matplotlib.pyplot as plt
-from EC_assignment1_part1 import number_of_islands, number_of_runs
+from EC_assignment1_part1 import number_of_runs
 
 enemy = 8
 population_size = 22

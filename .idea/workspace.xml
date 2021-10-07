@@ -1,7 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="23fd3a0d-c103-4521-adf0-4b3ff69a31da" name="Default Changelist" comment="" />
+    <list default="true" id="23fd3a0d-c103-4521-adf0-4b3ff69a31da" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/EC_assignment2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/evoman_framework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/evoman_framework.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run10.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run10.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run5.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run6.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run7.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run7.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run8.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run9.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run9.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run10.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run10.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run5.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run6.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run7.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run7.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run8.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run9.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run9.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_lineplot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run10.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run10.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run5.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run6.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run7.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run7.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run8.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run9.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run9.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run10.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run10.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run5.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run6.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run7.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run7.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run8.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run9.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run9.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_lineplot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/analyze.py" beforeDir="false" afterPath="$PROJECT_DIR$/analyze.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/optimization_generalist_demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/optimization_generalist_demo.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +65,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="ProjectId" id="1y7XzcJeVeHhSSyWd1SpxzrpX3I" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -26,14 +82,15 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/EC_assignment1_part1" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Ywema\Documents\Artificial Intelligence Msc\Year2\Periode1\Evolutionary Computing\evoman_framework\EC_assignment1_part1" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.analyze">
+  <component name="RunManager" selected="Python.EC_assignment2">
     <configuration name="EC_assignment1_part1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -46,6 +103,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/EC_assignment1_part1.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -67,9 +125,29 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/EC_assignment1_part2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="EC_assignment2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="evoman_framework" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/EC_assignment2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
@@ -88,9 +166,10 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="" />
       <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
@@ -109,6 +188,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/analyze.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -126,6 +206,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="docs" factoryName="Docutils task">
@@ -137,6 +218,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="docutils_input_file" value="" />
       <option name="docutils_output_file" value="" />
       <option name="docutils_params" value="" />
@@ -153,6 +235,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="docutils_input_file" value="" />
       <option name="docutils_output_file" value="" />
       <option name="docutils_params" value="" />
@@ -169,6 +252,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="" />
       <option name="CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
@@ -182,9 +266,11 @@
       <item itemvalue="Python.EC_assignment1_part2" />
       <item itemvalue="Python.analyze" />
       <item itemvalue="Python.EC_assignment1_part1" />
+      <item itemvalue="Python.EC_assignment2" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.EC_assignment2" />
         <item itemvalue="Python.analyze" />
         <item itemvalue="Python.EC_assignment1_part1" />
         <item itemvalue="Python.EC_assignment1_part2" />
@@ -199,11 +285,28 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1631603870145</updated>
+      <workItem from="1633536299118" duration="824000" />
+      <workItem from="1633599510025" duration="7048000" />
     </task>
     <servers />
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/evoman/environment.py</url>
+          <line>595</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/evoman/environment.py</url>
+          <line>586</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -212,5 +315,9 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/evoman_framework$analyze.coverage" NAME="analyze Coverage Results" MODIFIED="1633537030804" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/evoman_framework$EC_assignment2.coverage" NAME="EC_assignment2 Coverage Results" MODIFIED="1633609460022" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
