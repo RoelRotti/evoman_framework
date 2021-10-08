@@ -2,53 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="23fd3a0d-c103-4521-adf0-4b3ff69a31da" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/EC_assignment2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/evoman_framework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/evoman_framework.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run10.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run10.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run5.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run6.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run7.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run7.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run8.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run9.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_1islands_run9.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run10.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run10.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run5.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run6.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run7.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run7.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run8.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run9.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_4islands_run9.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy2_lineplot.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run10.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run10.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run5.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run6.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run7.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run7.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run8.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run9.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_1islands_run9.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run10.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run10.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run5.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run6.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run7.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run7.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run8.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run9.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_4islands_run9.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EC_assignment1_part1/enemy8_lineplot.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/analyze.py" beforeDir="false" afterPath="$PROJECT_DIR$/analyze.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/optimization_generalist_demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/optimization_generalist_demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment1/evoman_logs.txt" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment1/evoman_logs.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EC_assignment2.py" beforeDir="false" afterPath="$PROJECT_DIR$/EC_assignment2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +16,17 @@
       <list>
         <option value="Python Script" />
       </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
     </option>
   </component>
   <component name="Git.Settings">
@@ -286,7 +253,7 @@
       <option name="presentableId" value="Default" />
       <updated>1631603870145</updated>
       <workItem from="1633536299118" duration="824000" />
-      <workItem from="1633599510025" duration="7048000" />
+      <workItem from="1633599510025" duration="12536000" />
     </task>
     <servers />
   </component>

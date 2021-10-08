@@ -19,8 +19,8 @@ n_hidden_neurons = 10
 
 # initializes environment with ai player using random controller, playing against static enemy
 env = Environment(experiment_name=experiment_name,
-                  enemies=[7,8],
-                  multiplemode="yes",
+                  enemies=[7],
+                  multiplemode="no",
                   playermode="ai",
                   player_controller=player_controller(n_hidden_neurons),
                   enemymode="static",
@@ -28,6 +28,7 @@ env = Environment(experiment_name=experiment_name,
                   speed="fastest")
 
 n_vars = (env.get_num_sensors()+1)*n_hidden_neurons + (n_hidden_neurons+1)*5
+C = 10
 
 # define objective function
 def obj(x):
@@ -48,14 +49,22 @@ def check_bounds(mutated, bounds):
 
 
 # define crossover operation
-def crossover(mutated, target, cr):
-    # generate a uniform random value for every dimension
-    p = np.random.rand(len(mutated))
-    # generate trial vector by binomial crossover
-    trial = [mutated[i] if p[i] < cr else target[i] for i in range(len(mutated))]
+def crossover(mutated, target, cr, method):
+    if method == 'bin':
+        # generate a uniform random value for every dimension
+        p = np.random.rand(len(mutated))
+        # generate trial vector by binomial crossover
+        trial = [mutated[i] if p[i] < cr else target[i] for i in range(len(mutated))]
+    else:
+        # generate and sort two points in between the mutant vector is expressed
+        two_points = np.random.randint(0, len(mutated)-1, 2)
+        two_points = two_points.sort()
+        # generate trial vector by exponential crossover
+        trial = [mutated[i] if two_points[0] <= i <= two_points[1] else target[i] for i in range(len(mutated))]
     return trial
 
 
+# DE with 2 randomly chosen candidates and binomial crossover scheme
 def differential_evolution(pop_size, bounds, n_generations, F, cr):
     # initialise population of candidate solutions randomly within the specified bounds
     pop = np.random.uniform(-1, 1, (pop_size, n_vars))
@@ -79,17 +88,28 @@ def differential_evolution(pop_size, bounds, n_generations, F, cr):
             # check that lower and upper bounds are retained after mutation
             mutated = check_bounds(mutated, bounds)
             # perform crossover
-            trial = np.array(crossover(mutated, pop[j], cr))
+            trial = np.array(crossover(mutated, pop[j], cr, 'exp'))
             # compute objective function value for target vector
             obj_target = obj(pop[j])
             # compute objective function value for trial vector
             obj_trial = obj(trial)
             # perform selection
-            if obj_trial > obj_target:
+            if obj_trial >= obj_target:
                 # replace the target vector with the trial vector
                 pop[j] = trial
                 # store the new objective function value
                 obj_all[j] = obj_trial
+##############################################################################################
+            # simulated annealing
+            else:
+                C = C - C/100
+                p_accept_trial = np.exp((obj_target-obj_trial)/C)
+                if p_accept_trial > np.random.uniform(0, 1, 1):
+                    # replace the target vector with the trial vector
+                    pop[j] = trial
+                    # store the new objective function value
+                    obj_all[j] = obj_trial
+###############################################################################################
         # find the best performing vector at each iteration
         best_obj = max(obj_all)
         # store the highest objective function value
@@ -103,11 +123,11 @@ def differential_evolution(pop_size, bounds, n_generations, F, cr):
 
 
 # define population size
-pop_size = 10
+pop_size = 100
 # define lower and upper bounds for every dimension
 bounds = [-1.0, 1.0]
 # define number of iterations
-n_generations = 10
+n_generations = 20
 # define scale factor for mutation
 F = 0.5
 # define crossover rate for recombination
