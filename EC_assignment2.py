@@ -8,6 +8,7 @@ from scipy.optimize import differential_evolution
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 experiment_name = 'EC_assignment1'
 if not os.path.exists(experiment_name):
@@ -33,7 +34,7 @@ n_vars = (env.get_num_sensors()+1)*n_hidden_neurons + (n_hidden_neurons+1)*5
 C = 10
 
 # Create a custom environment
-def create_env(group):
+def create_env(group, randomm = "no"):
     if len(group) > 1: multim = "yes" 
     else: multim = "no" 
     # initializes environment with ai player using random controller, playing against static enemy
@@ -44,16 +45,18 @@ def create_env(group):
                     player_controller=player_controller(n_hidden_neurons),
                     enemymode="static",
                     level=2,
-                    speed="fastest")
+                    speed="fastest",
+                    randomini=randomm)
     return env
 
 # define objective function
-def obj(x, group):
+def obj(x, group, return_all=False, randomm = "no"):
     # create env
-    envv = create_env(group)
+    envv = create_env(group, randomm)
     # f = fitness, p = player life, e = enemy life, t = game run time
     [f, p, e, t] = envv.play(pcont=x)
-    return f
+    if return_all: return [f, p, e, t]
+    else:    return f
 
 
 # define mutation operation
@@ -150,19 +153,9 @@ def differential_evolution(pop_size, bounds, n_generations, F, cr, group):
     return [best_vector, best_obj, obj_iter, max_fitness_gen, mean_fitness_gen]
 
 
-# define population size
-pop_size = 5#0
-# define lower and upper bounds for every dimension
-bounds = [-1.0, 1.0]
-# define number of iterations
-n_generations = 2#0
-# define scale factor for mutation
-F = 0.5
-# define crossover rate for recombination
-cr = 0.7
-
-def make_plots_save_data(max_fitness_generations, mean_f, group):
+def make_plots_save_data(max_fitness_generations, mean_f, best_vectors, group, show):
     ### LINE PLOTS ###
+
     # add mean
     mean_f["mean"] = mean_f.mean(axis = 1)
     # get sd
@@ -175,21 +168,61 @@ def make_plots_save_data(max_fitness_generations, mean_f, group):
     mean_f["max"] = max_f.mean(axis = 1)
     print(mean_f)
     # plot
-    plt.plot(mean_f["mean"])
     plt.plot(mean_f["max"])
-    plt.fill_between(mean_f.index, mean_f["ub"], mean_f["lb"], facecolor='blue', alpha=0.5,
+    plt.plot(mean_f["mean"])
+    plt.fill_between(mean_f.index, mean_f["ub"], mean_f["lb"], facecolor='orange', alpha=0.5,
                  interpolate=True)
-    plt.title(f"Mean Agent Fitness Against Group {group}")
+    plt.title(f"Mean Agent Fitness against Group {group}. {number_of_runs} runs, {n_generations} gens, pop size {pop_size}")
     plt.ylabel("Fitness")
     plt.xlabel("Generation")
     plt.grid()
     plt.xlim(0,n_generations-1)
-    plt.legend(labels=["Mean", "Max"])
+    plt.legend(labels=["Max", "Mean"])
     plt.xticks(np.arange(0, n_generations, 1.0))
     plt.savefig(f"EC_assignment2/group{group}_lineplot.pdf", dpi=300, bbox_inches='tight')
-    plt.show()
+    if show:    plt.show()
     # save pandas dataframe
-    mean_f.to_csv(f'EC_assignment2/DF_mean_fitness_group{group}.txt', sep='\t')
+    mean_f.to_csv(f'EC_assignment2/DF_mean_fitness_lineplot_group{group}.txt', sep='\t')
+
+    ### BOX PLOTS ###
+    all_enemies = [[1],[2],[3],[4],[5],[6],[7],[8]]
+    mean_gain = pd.DataFrame()
+    mean_gain["enemies"] = all_enemies
+    # test the best vector of each run
+    for i in range(len(best_vectors)):
+        # test against each enemy
+        enemy_gain = []
+        for enemy in all_enemies:
+            # test 5 times
+            gains = []
+            for j in range(5):
+                # play agains enemy
+                stats = obj(best_vectors[i], enemy, return_all=True, randomm="yes")
+                # gain = player_life - enemy_life
+                gain = stats[1]-stats[2] 
+                gains.append(gain)
+            enemy_gain.append(sum(gains)/len(gains))
+        mean_gain["Run_" + str(i)] = enemy_gain
+        
+    # calculate mean of each 
+    mean_gain["mean"] = mean_gain.mean(axis = 1)
+    # plot boxplot
+    sns.boxplot(y=mean_gain["mean"]).set_title(f"Gain of best genome. Group {group}, {number_of_runs} runs, {n_generations} gens, pop size {pop_size}") 
+    plt.ylabel("Gain")
+    plt.savefig(f"EC_assignment2/group{group}_boxplot.pdf", dpi=300, bbox_inches='tight')
+    if show: plt.show()
+    mean_gain.to_csv(f'EC_assignment2/DF_mean_gain_boxplot_group{group}.txt', sep='\t')
+            
+# define population size
+pop_size = 5#0
+# define lower and upper bounds for every dimension
+bounds = [-1.0, 1.0]
+# define number of iterations
+n_generations = 2#0
+# define scale factor for mutation
+F = 0.5
+# define crossover rate for recombination
+cr = 0.7
 
 
 number_of_runs = 2
@@ -221,7 +254,7 @@ for group in groups:
             max_f["Run_"+str(i)] = solution[3]
             mean_f["Run_"+str(i)] = solution[4]
 
-        make_plots_save_data(max_f, mean_f, group)
+        make_plots_save_data(max_f, mean_f, best_vectors, group, show=True)
 
         
 
