@@ -9,6 +9,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from scipy.stats import cauchy
+import random
 
 experiment_name = 'EC_assignment1'
 if not os.path.exists(experiment_name):
@@ -19,7 +21,6 @@ if headless:
     os.environ["SDL_VIDEODRIVER"] = "dummy"
 
 n_hidden_neurons = 10
-
 # initializes environment with ai player using random controller, playing against static enemy
 env = Environment(experiment_name=experiment_name,
                   enemies=[7],
@@ -31,8 +32,6 @@ env = Environment(experiment_name=experiment_name,
                   speed="fastest")
 
 n_vars = (env.get_num_sensors()+1)*n_hidden_neurons + (n_hidden_neurons+1)*5
-C = 10
-
 # Create a custom environment
 def create_env(group, randomm = "no"):
     if len(group) > 1: multim = "yes" 
@@ -87,7 +86,7 @@ def crossover(mutated, target, cr, method):
 
 
 # DE with 2 randomly chosen candidates and binomial crossover scheme
-def differential_evolution(pop_size, bounds, n_generations, F, cr, group):
+def differential_evolution(pop_size, bounds, n_generations, F_init, CR_init, group):
 
     # for plotting
     max_fitness_gen = []
@@ -105,17 +104,24 @@ def differential_evolution(pop_size, bounds, n_generations, F, cr, group):
     obj_iter = list()
     # run iterations of the algorithm
     for i in range(n_generations):
-        # iterate over all candidate solutions
+        # only initialise with initial values in the 0th generation
+        if i == 0:
+            F_matrix = [F_init]*pop_size
+            CR_matrix = [CR_init]*pop_size
+        # index for F_ and CR_memory
+        r = 0
+        F_memory = []
+        CR_memory = []
         for j in range(pop_size):
             # choose three candidates, a, b and c, that are not the current one
             candidates = [candidate for candidate in range(pop_size) if candidate != j]
             a, b, c = pop[np.random.choice(candidates, 3, replace=False)]
             # perform mutation
-            mutated = mutation([a, b, c], F)
+            mutated = mutation([a, b, c], F_matrix[j])
             # check that lower and upper bounds are retained after mutation
             mutated = check_bounds(mutated, bounds)
             # perform crossover
-            trial = np.array(crossover(mutated, pop[j], cr, 'exp'))
+            trial = np.array(crossover(mutated, pop[j], CR_matrix[j], 'exp'))
             # compute objective function value for target vector
             obj_target = obj(pop[j], group)
             # compute objective function value for trial vector
@@ -126,19 +132,32 @@ def differential_evolution(pop_size, bounds, n_generations, F, cr, group):
                 pop[j] = trial
                 # store the new objective function value
                 obj_all[j] = obj_trial
+                # store F and CR 
+                F_memory.append(F_matrix[j])
+                CR_memory.append(CR_matrix[j])
 ##############################################################################################
             # simulated annealing
-            else:
-                global C
-                C = C - C/100
-                p_accept_trial = np.exp((obj_target-obj_trial)/C)
-                if p_accept_trial > np.random.uniform(0, 1, 1):
-                    # replace the target vector with the trial vector
-                    pop[j] = trial
-                    # store the new objective function value
-                    obj_all[j] = obj_trial
+            # else:
+            #     global C
+            #     C = C - C/100
+            #     p_accept_trial = np.exp((obj_target-obj_trial)/C)
+            #     if p_accept_trial > np.random.uniform(0, 1, 1):
+            #         # replace the target vector with the trial vector
+            #         pop[j] = trial
+            #         # store the new objective function value
+            #         obj_all[j] = obj_trial
 ###############################################################################################
         # find the best performing vector at each iteration
+        # compute F_avr is F_memory is NOT empty
+        if F_memory:
+            F_avr = np.mean(F_memory)
+            CR_avr = np.mean(CR_memory)
+            for j in range(pop_size):
+                F_matrix[i] = cauchy.rvs(loc = 0, scale = 0.1, size = 1) + F_avr
+                CR_matrix[i] = cauchy.rvs(loc = 0, scale = 0.1, size = 1) + CR_avr    
+            # F and CR are adjusted adjusted to bounds
+            F_matrix = check_bounds(F_matrix, [0.1,1])
+            CR_matrix = check_bounds(CR_matrix, [0,1])
         best_obj = max(obj_all)
         # for plotting
         max_fitness_gen.append(best_obj)
@@ -218,12 +237,11 @@ pop_size = 5#0
 # define lower and upper bounds for every dimension
 bounds = [-1.0, 1.0]
 # define number of iterations
-n_generations = 2#0
+n_generations = 5#0
 # define scale factor for mutation
-F = 0.5
+F_init = 0.5
 # define crossover rate for recombination
-cr = 0.7
-
+CR_init = 0.9
 
 number_of_runs = 2
 
@@ -233,7 +251,7 @@ obj_iterations = []
 max_f = pd.DataFrame()
 mean_f = pd.DataFrame()
 
-groups = [[2,5,8]]#, [1,2,3]]
+groups = [[7]]#, [1,2,3]]
 
 EAs = [1]
 
@@ -244,7 +262,7 @@ for group in groups:
         for i in range(number_of_runs):
 
             # perform differential evolution
-            solution = differential_evolution(pop_size, bounds, n_generations, F, cr, group)
+            solution = differential_evolution(pop_size, bounds, n_generations, F_init, CR_init, group)
             print('\nSolution: f([%s]) = %.5f' % (np.around(solution[0], decimals=5), solution[1]))
 
             best_vectors.append(solution[0])
