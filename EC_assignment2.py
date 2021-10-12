@@ -103,13 +103,15 @@ def differential_evolution(pop_size, bounds, n_generations, F_init, CR_init, gro
     # initialise list to store the objective function value at each iteration
     obj_iter = list()
     # run iterations of the algorithm
+    F_matrix = [F_init]*pop_size
+    CR_matrix = [CR_init]*pop_size
+    T = 10**4
     for i in range(n_generations):
-        # only initialise with initial values in the 0th generation
-        if i == 0:
-            F_matrix = [F_init]*pop_size
-            CR_matrix = [CR_init]*pop_size
+        # geometric annealing constant k
+        k = 0.9
+        # lower the temperature 
+        T = T * k
         # index for F_ and CR_memory
-        r = 0
         F_memory = []
         CR_memory = []
         for j in range(pop_size):
@@ -137,15 +139,13 @@ def differential_evolution(pop_size, bounds, n_generations, F_init, CR_init, gro
                 CR_memory.append(CR_matrix[j])
 ##############################################################################################
             # simulated annealing
-            # else:
-            #     global C
-            #     C = C - C/100
-            #     p_accept_trial = np.exp((obj_target-obj_trial)/C)
-            #     if p_accept_trial > np.random.uniform(0, 1, 1):
-            #         # replace the target vector with the trial vector
-            #         pop[j] = trial
-            #         # store the new objective function value
-            #         obj_all[j] = obj_trial
+            else:
+                p_accept_trial = np.exp(-(obj_target-obj_trial)/T)
+                if p_accept_trial > np.random.uniform(0, 1, 1):
+                    # replace the target vector with the trial vector
+                    pop[j] = trial
+                    # store the new objective function value
+                    obj_all[j] = obj_trial
 ###############################################################################################
         # find the best performing vector at each iteration
         # compute F_avr is F_memory is NOT empty
