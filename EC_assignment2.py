@@ -87,22 +87,25 @@ def crossover(mutated, target, cr, method):
 def make_plots_save_data(max_f, mean_f, best_vectors, group, show):
     ### LINE PLOTS ###
 
-    # add mean
-    mean_f["mean"] = mean_f.mean(axis = 1)
-    # get sd
-    mean_f["sd"] = mean_f.std(axis=1)
-    # get upper bound
-    mean_f["ub"] = mean_f["mean"] + mean_f["sd"]
-    # get lower bound
-    mean_f["lb"] = mean_f["mean"] - mean_f["sd"]
-    # get mean of maxes
-    mean_f["max"] = max_f.mean(axis = 1)
-    print(mean_f)
-    # plot
-    plt.plot(mean_f["max"])
-    plt.plot(mean_f["mean"])
-    plt.fill_between(mean_f.index, mean_f["ub"], mean_f["lb"], facecolor='orange', alpha=0.5,
-                 interpolate=True)
+    colors = ["red", "orange", "blue", "green"]
+
+    for i in range(len(max_f)):
+        # add mean
+        mean_f[i]["mean"] = mean_f[i].mean(axis = 1)
+        # get sd
+        mean_f[i]["sd"] = mean_f[i].std(axis=1)
+        # get upper bound
+        mean_f[i]["ub"] = mean_f[i]["mean"] + mean_f[i]["sd"]
+        # get lower bound
+        mean_f[i]["lb"] = mean_f[i]["mean"] - mean_f[i]["sd"]
+        # get mean of maxes
+        mean_f[i]["max"] = max_f[i].mean(axis = 1)
+        print(mean_f[i])
+        # plot
+        plt.plot(mean_f[i]["max"], color = colors[i])
+        plt.plot(mean_f[i]["mean"], color = colors[i*2]) ## FIX COLORSSS
+        plt.fill_between(mean_f[i].index, mean_f[i]["ub"], mean_f[i]["lb"], facecolor='orange', alpha=0.5,
+                    interpolate=True)
     plt.title(f"Mean Agent Fitness against Group {group}. {number_of_runs} runs, {n_generations} gens, pop size {pop_size}")
     plt.ylabel("Fitness")
     plt.xlabel("Generation")
