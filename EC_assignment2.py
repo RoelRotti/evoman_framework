@@ -271,9 +271,3 @@ for group in groups:
 
     make_plots_save_data(max_f[i], mean_f[i], best_vectors[i], group, show=True)
 
-        
-
-
-
-
-
