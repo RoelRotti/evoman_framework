@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from scipy.stats import cauchy
 
 experiment_name = 'EC_assignment1'
 if not os.path.exists(experiment_name):
@@ -84,7 +85,96 @@ def crossover(mutated, target, cr, method):
         trial = [mutated[i] if two_points[0] <= i <= two_points[1] else target[i] for i in range(len(mutated))]
     return trial
 
+
+# DE with 2 randomly chosen candidates and binomial crossover scheme
+def differential_evolution(pop_size, bounds, n_generations, group, EA):
+    # assign variables of this specific EA
+    T = EA["T"]
+    F_init = EA["F_init"]
+    CR_init = EA["CR_init"]
+    # for plotting
+    max_fitness_gen = []
+    mean_fitness_gen = []
+    # initialise population of candidate solutions randomly within the specified bounds
+    pop = np.random.uniform(-1, 1, (pop_size, n_vars))
+    # evaluate initial population of candidate solutions
+    obj_all = [obj(ind, group) for ind in pop]
+    # find the best performing vector of initial population
+    best_vector = pop[np.argmax(obj_all)]
+    best_obj = max(obj_all)
+    prev_obj = best_obj
+    # initialise list to store the objective function value at each iteration
+    obj_iter = list()
+    # run iterations of the algorithm
+    F_matrix = [F_init]*pop_size
+    CR_matrix = [CR_init]*pop_size
+    for i in range(n_generations):
+        # geometric annealing constant k
+        k = 0.9
+        # lower the temperature 
+        T = T * k
+        # index for F_ and CR_memory
+        F_memory = []
+        CR_memory = []
+        for j in range(pop_size):
+            # choose three candidates, a, b and c, that are not the current one
+            candidates = [candidate for candidate in range(pop_size) if candidate != j]
+            a, b, c = pop[np.random.choice(candidates, 3, replace=False)]
+            # perform mutation
+            mutated = mutation([a, b, c], F_matrix[j])
+            # check that lower and upper bounds are retained after mutation
+            mutated = check_bounds(mutated, bounds)
+            # perform crossover
+            trial = np.array(crossover(mutated, pop[j], CR_matrix[j], 'exp'))
+            # compute objective function value for target vector
+            obj_target = obj(pop[j], group)
+            # compute objective function value for trial vector
+            obj_trial = obj(trial, group)
+            # perform selection
+            if obj_trial >= obj_target:
+                # replace the target vector with the trial vector
+                pop[j] = trial
+                # store the new objective function value
+                obj_all[j] = obj_trial
+                # store F and CR 
+                F_memory.append(F_matrix[j])
+                CR_memory.append(CR_matrix[j])
+##############################################################################################
+            # simulated annealing: will not run if T = 0
+            if (obj_trial < obj_trial) & (T > 0):
+                p_accept_trial = np.exp(-(obj_target-obj_trial)/T)
+                if p_accept_trial > np.random.uniform(0, 1, 1):
+                    # replace the target vector with the trial vector
+                    pop[j] = trial
+                    # store the new objective function value
+                    obj_all[j] = obj_trial
+###############################################################################################
+        # find the best performing vector at each iteration
+        # compute F_avr is F_memory is NOT empty
+        if F_memory:
+            F_avr = np.mean(F_memory)
+            CR_avr = np.mean(CR_memory)
+            for j in range(pop_size):
+                F_matrix[i] = cauchy.rvs(loc = 0, scale = 0.1, size = 1) + F_avr
+                CR_matrix[i] = cauchy.rvs(loc = 0, scale = 0.1, size = 1) + CR_avr    
+            # F and CR are adjusted adjusted to bounds
+            F_matrix = check_bounds(F_matrix, [0.1,1])
+            CR_matrix = check_bounds(CR_matrix, [0,1])
+        best_obj = max(obj_all)
+        # for plotting
+        max_fitness_gen.append(best_obj)
+        mean_fitness_gen.append(np.mean(obj_all))
+        # store the highest objective function value
+        if best_obj > prev_obj:
+            best_vector = pop[np.argmin(obj_all)]
+            prev_obj = best_obj
+            obj_iter.append(best_obj)
+            # report progress at each iteration
+            print('Iteration: %d f([%s]) = %.5f' % (i, np.around(best_vector, decimals=5), best_obj))
+    return [best_vector, best_obj, obj_iter, max_fitness_gen, mean_fitness_gen]
+
 def make_plots_save_data(max_f, mean_f, best_vectors, group, show):
+
     ### LINE PLOTS ###
 
     colors = ["red", "orange", "blue", "green"]
@@ -148,74 +238,6 @@ def make_plots_save_data(max_f, mean_f, best_vectors, group, show):
     mean_gain.to_csv(f'EC_assignment2/DF_mean_gain_boxplot_group{group}.txt', sep='\t')
 
 
-# DE with 2 randomly chosen candidates and binomial crossover scheme
-def differential_evolution(pop_size, bounds, n_generations, group, EA):
-    # assign variables of this specific EA
-    C = EA["C"]
-    F = EA["F"]
-    cr = EA["cr"]
-    # for plotting
-    max_fitness_gen = []
-    mean_fitness_gen = []
-    # initialise population of candidate solutions randomly within the specified bounds
-    pop = np.random.uniform(-1, 1, (pop_size, n_vars))
-    # evaluate initial population of candidate solutions
-    obj_all = [obj(ind, group) for ind in pop]
-    # find the best performing vector of initial population
-    best_vector = pop[np.argmax(obj_all)]
-    best_obj = max(obj_all)
-    prev_obj = best_obj
-    # initialise list to store the objective function value at each iteration
-    obj_iter = list()
-    # run iterations of the algorithm
-    for i in range(n_generations):
-        # iterate over all candidate solutions
-        for j in range(pop_size):
-            # choose three candidates, a, b and c, that are not the current one
-            candidates = [candidate for candidate in range(pop_size) if candidate != j]
-            a, b, c = pop[np.random.choice(candidates, 3, replace=False)]
-            # perform mutation
-            mutated = mutation([a, b, c], F)
-            # check that lower and upper bounds are retained after mutation
-            mutated = check_bounds(mutated, bounds)
-            # perform crossover
-            trial = np.array(crossover(mutated, pop[j], cr, 'exp'))
-            # compute objective function value for target vector
-            obj_target = obj(pop[j], group)
-            # compute objective function value for trial vector
-            obj_trial = obj(trial, group)
-            # perform selection
-            if obj_trial >= obj_target:
-                # replace the target vector with the trial vector
-                pop[j] = trial
-                # store the new objective function value
-                obj_all[j] = obj_trial
-##############################################################################################
-            # simulated annealing
-            else:
-                C = C - C/100
-                p_accept_trial = np.exp((obj_target-obj_trial)/C)
-                if p_accept_trial > np.random.uniform(0, 1, 1):
-                    # replace the target vector with the trial vector
-                    pop[j] = trial
-                    # store the new objective function value
-                    obj_all[j] = obj_trial
-###############################################################################################
-        # find the best performing vector at each iteration
-        best_obj = max(obj_all)
-        # for plotting
-        max_fitness_gen.append(best_obj)
-        mean_fitness_gen.append(np.mean(obj_all))
-        # store the highest objective function value
-        if best_obj > prev_obj:
-            best_vector = pop[np.argmin(obj_all)]
-            prev_obj = best_obj
-            obj_iter.append(best_obj)
-            # report progress at each iteration
-            print('Iteration: %d f([%s]) = %.5f' % (i, np.around(best_vector, decimals=5), best_obj))
-    return [best_vector, best_obj, obj_iter, max_fitness_gen, mean_fitness_gen]
-
-
 ## VARIABLES
 
 # Overall
@@ -227,20 +249,11 @@ bounds = [-1.0, 1.0]
 # define number of iterations
 n_generations = 2#0
 
-# Per algorithm
-# define C for simulated annealing
-# C = 10
-# # define scale factor for mutation
-# F = 0.5
-# # define crossover rate for recombination
-# cr = 0.7
-
-
 number_of_runs = 2
 
-groups = [[2,5,8]]#, [1,2,3]]
+groups = [[7]]#, [1,2,3]]
 
-EAs = [{"C": 10, "F": 0.5, "cr" : 0.7}]
+EAs = [{"T": 10**4, "F_init": 0.5, "CR_init" : 0.9}]
 # assign empty lists
 best_vectors = []
 best_fitnesses_boxplot = []
