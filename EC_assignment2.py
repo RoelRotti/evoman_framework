@@ -10,7 +10,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import cauchy
-import random
 
 experiment_name = 'EC_assignment1'
 if not os.path.exists(experiment_name):
@@ -21,6 +20,7 @@ if headless:
     os.environ["SDL_VIDEODRIVER"] = "dummy"
 
 n_hidden_neurons = 10
+
 # initializes environment with ai player using random controller, playing against static enemy
 env = Environment(experiment_name=experiment_name,
                   enemies=[7],
@@ -31,7 +31,8 @@ env = Environment(experiment_name=experiment_name,
                   level=2,
                   speed="fastest")
 
-n_vars = (env.get_num_sensors()+1)*n_hidden_neurons + (n_hidden_neurons+1)*5
+
+
 # Create a custom environment
 def create_env(group, randomm = "no"):
     if len(group) > 1: multim = "yes" 
@@ -86,12 +87,14 @@ def crossover(mutated, target, cr, method):
 
 
 # DE with 2 randomly chosen candidates and binomial crossover scheme
-def differential_evolution(pop_size, bounds, n_generations, F_init, CR_init, group):
-
+def differential_evolution(pop_size, bounds, n_generations, group, EA):
+    # assign variables of this specific EA
+    T = EA["T"]
+    F_init = EA["F_init"]
+    CR_init = EA["CR_init"]
     # for plotting
     max_fitness_gen = []
     mean_fitness_gen = []
-
     # initialise population of candidate solutions randomly within the specified bounds
     pop = np.random.uniform(-1, 1, (pop_size, n_vars))
     # evaluate initial population of candidate solutions
@@ -105,7 +108,6 @@ def differential_evolution(pop_size, bounds, n_generations, F_init, CR_init, gro
     # run iterations of the algorithm
     F_matrix = [F_init]*pop_size
     CR_matrix = [CR_init]*pop_size
-    T = 10**4
     for i in range(n_generations):
         # geometric annealing constant k
         k = 0.9
@@ -138,8 +140,8 @@ def differential_evolution(pop_size, bounds, n_generations, F_init, CR_init, gro
                 F_memory.append(F_matrix[j])
                 CR_memory.append(CR_matrix[j])
 ##############################################################################################
-            # simulated annealing
-            else:
+            # simulated annealing: will not run if T = 0
+            if (obj_trial < obj_trial) & (T > 0):
                 p_accept_trial = np.exp(-(obj_target-obj_trial)/T)
                 if p_accept_trial > np.random.uniform(0, 1, 1):
                     # replace the target vector with the trial vector
@@ -171,8 +173,8 @@ def differential_evolution(pop_size, bounds, n_generations, F_init, CR_init, gro
             print('Iteration: %d f([%s]) = %.5f' % (i, np.around(best_vector, decimals=5), best_obj))
     return [best_vector, best_obj, obj_iter, max_fitness_gen, mean_fitness_gen]
 
+def make_plots_save_data(max_f, mean_f, best_vectors, group, show):
 
-def make_plots_save_data(max_fitness_generations, mean_f, best_vectors, group, show):
     ### LINE PLOTS ###
 
     # add mean
@@ -231,52 +233,54 @@ def make_plots_save_data(max_fitness_generations, mean_f, best_vectors, group, s
     plt.savefig(f"EC_assignment2/group{group}_boxplot.pdf", dpi=300, bbox_inches='tight')
     if show: plt.show()
     mean_gain.to_csv(f'EC_assignment2/DF_mean_gain_boxplot_group{group}.txt', sep='\t')
-            
+
+
+## VARIABLES
+
+# Overall
+n_vars = (env.get_num_sensors()+1)*n_hidden_neurons + (n_hidden_neurons+1)*5
 # define population size
 pop_size = 5#0
 # define lower and upper bounds for every dimension
 bounds = [-1.0, 1.0]
 # define number of iterations
-n_generations = 5#0
-# define scale factor for mutation
-F_init = 0.5
-# define crossover rate for recombination
-CR_init = 0.9
+n_generations = 2#0
 
 number_of_runs = 2
 
+groups = [[7]]#, [1,2,3]]
+
+EAs = [{"T": 10**4, "F_init": 0.5, "CR_init" : 0.9}]
+# assign empty lists
 best_vectors = []
 best_fitnesses_boxplot = []
 obj_iterations = []
-max_f = pd.DataFrame()
-mean_f = pd.DataFrame()
-
-groups = [[7]]#, [1,2,3]]
-
-EAs = [1]
+max_f = []
+mean_f = []
+# fill lists according to amount of EA's
+for i in range(len(EAs)):
+    best_vectors.append([])
+    best_fitnesses_boxplot.append([])
+    obj_iterations.append([])
+    max_f.append(pd.DataFrame())
+    mean_f.append(pd.DataFrame())
 
 for group in groups:
 
-    for EA in EAs:
+    for i, EA in enumerate(EAs):
 
-        for i in range(number_of_runs):
+        for j in range(number_of_runs):
 
             # perform differential evolution
-            solution = differential_evolution(pop_size, bounds, n_generations, F_init, CR_init, group)
+            solution = differential_evolution(pop_size, bounds, n_generations, group, EA)
             print('\nSolution: f([%s]) = %.5f' % (np.around(solution[0], decimals=5), solution[1]))
 
-            best_vectors.append(solution[0])
-            best_fitnesses_boxplot.append(solution[1])
-            obj_iterations.append(solution[2])
+            best_vectors[i].append(solution[0])
+            best_fitnesses_boxplot[i].append(solution[1])
+            obj_iterations[i].append(solution[2])
 
-            max_f["Run_"+str(i)] = solution[3]
-            mean_f["Run_"+str(i)] = solution[4]
+            max_f[i]["Run_"+str(j)] = solution[3]
+            mean_f[i]["Run_"+str(j)] = solution[4]
 
-        make_plots_save_data(max_f, mean_f, best_vectors, group, show=True)
-
-        
-
-
-
-
+    make_plots_save_data(max_f[i], mean_f[i], best_vectors[i], group, show=True)
 
