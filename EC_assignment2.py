@@ -141,7 +141,7 @@ def differential_evolution(pop_size, bounds, n_generations, group, EA):
                 CR_memory.append(CR_matrix[j])
 ##############################################################################################
             # simulated annealing: will not run if T = 0
-            if (obj_trial < obj_trial) & (T > 0):
+            if (obj_trial < obj_target) & (T > 0):
                 p_accept_trial = np.exp(-(obj_target-obj_trial)/T)
                 if p_accept_trial > np.random.uniform(0, 1, 1):
                     # replace the target vector with the trial vector
@@ -155,8 +155,8 @@ def differential_evolution(pop_size, bounds, n_generations, group, EA):
             F_avr = np.mean(F_memory)
             CR_avr = np.mean(CR_memory)
             for j in range(pop_size):
-                F_matrix[i] = cauchy.rvs(loc = 0, scale = 0.1, size = 1) + F_avr
-                CR_matrix[i] = cauchy.rvs(loc = 0, scale = 0.1, size = 1) + CR_avr    
+                F_matrix[j] = cauchy.rvs(loc = 0, scale = 0.1, size = 1) + F_avr
+                CR_matrix[j] = cauchy.rvs(loc = 0, scale = 0.1, size = 1) + CR_avr    
             # F and CR are adjusted adjusted to bounds
             F_matrix = check_bounds(F_matrix, [0.1,1])
             CR_matrix = check_bounds(CR_matrix, [0,1])
@@ -192,21 +192,26 @@ def make_plots_save_data(max_f, mean_f, best_vectors, group, show):
         mean_f[i]["max"] = max_f[i].mean(axis = 1)
         print(mean_f[i])
         # plot
-        plt.plot(mean_f[i]["max"], color = colors[i])
-        plt.plot(mean_f[i]["mean"], color = colors[i*2]) ## FIX COLORSSS
-        plt.fill_between(mean_f[i].index, mean_f[i]["ub"], mean_f[i]["lb"], facecolor='orange', alpha=0.5,
+        c_i = i*2
+        plt.plot(mean_f[i]["max"], color = colors[c_i])
+        plt.plot(mean_f[i]["mean"], color = colors[c_i+1]) 
+        plt.fill_between(mean_f[i].index, mean_f[i]["ub"], mean_f[i]["lb"], facecolor=colors[c_i+1], alpha=0.5,
                     interpolate=True)
+        # save pandas dataframe
+        mean_f[i].to_csv(f'EC_assignment2/DF_mean_fitness_lineplot_EA{EAs[i]}_group{group}.txt', sep='\t')
     plt.title(f"Mean Agent Fitness against Group {group}. {number_of_runs} runs, {n_generations} gens, pop size {pop_size}")
     plt.ylabel("Fitness")
     plt.xlabel("Generation")
     plt.grid()
     plt.xlim(0,n_generations-1)
-    plt.legend(labels=["Max", "Mean"])
+    # adjustable legend
+    if len(EAs) > 1:        plt.legend(labels=[f"Max_{EAs[0]}", f"Mean_{EAs[0]}",f"Max_{EAs[1]}", f"Mean_{EAs[1]}"]) 
+    else:   plt.legend(labels=[f"Max_{EAs[0]}", f"Mean_{EAs[0]}"])
     plt.xticks(np.arange(0, n_generations, 1.0))
-    plt.savefig(f"EC_assignment2/group{group}_lineplot.pdf", dpi=300, bbox_inches='tight')
+    plt.savefig(f"EC_assignment2/group{group}_lineplot{EAs}.pdf", dpi=300, bbox_inches='tight')
     if show:    plt.show()
-    # save pandas dataframe
-    mean_f.to_csv(f'EC_assignment2/DF_mean_fitness_lineplot_group{group}.txt', sep='\t')
+
+    #TODO: boxplots for multiple EAs
 
     ### BOX PLOTS ###
     all_enemies = [[1],[2],[3],[4],[5],[6],[7],[8]]
@@ -251,9 +256,9 @@ n_generations = 2#0
 
 number_of_runs = 2
 
-groups = [[7]]#, [1,2,3]]
+groups = [[2,5]]#, [1,2,3]]
 
-EAs = [{"T": 10**4, "F_init": 0.5, "CR_init" : 0.9}]
+EAs = [{"T": 10**4, "F_init": 0.5, "CR_init" : 0.9}, {"T": 0, "F_init": 0.5, "CR_init" : 0.9}]
 # assign empty lists
 best_vectors = []
 best_fitnesses_boxplot = []
@@ -285,5 +290,5 @@ for group in groups:
             max_f[i]["Run_"+str(j)] = solution[3]
             mean_f[i]["Run_"+str(j)] = solution[4]
 
-    make_plots_save_data(max_f[i], mean_f[i], best_vectors[i], group, show=True)
+    make_plots_save_data(max_f, mean_f, best_vectors[i], group, show=True)
 
