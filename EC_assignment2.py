@@ -141,7 +141,7 @@ def differential_evolution(pop_size, bounds, n_generations, group, EA):
                 CR_memory.append(CR_matrix[j])
 ##############################################################################################
             # simulated annealing: will not run if T = 0
-            if (obj_trial < obj_trial) & (T > 0):
+            if (obj_trial < obj_target) & (T > 0):
                 p_accept_trial = np.exp(-(obj_target-obj_trial)/T)
                 if p_accept_trial > np.random.uniform(0, 1, 1):
                     # replace the target vector with the trial vector
@@ -155,8 +155,8 @@ def differential_evolution(pop_size, bounds, n_generations, group, EA):
             F_avr = np.mean(F_memory)
             CR_avr = np.mean(CR_memory)
             for j in range(pop_size):
-                F_matrix[i] = cauchy.rvs(loc = 0, scale = 0.1, size = 1) + F_avr
-                CR_matrix[i] = cauchy.rvs(loc = 0, scale = 0.1, size = 1) + CR_avr    
+                F_matrix[j] = cauchy.rvs(loc = 0, scale = 0.1, size = 1) + F_avr
+                CR_matrix[j] = cauchy.rvs(loc = 0, scale = 0.1, size = 1) + CR_avr    
             # F and CR are adjusted adjusted to bounds
             F_matrix = check_bounds(F_matrix, [0.1,1])
             CR_matrix = check_bounds(CR_matrix, [0,1])
@@ -240,15 +240,15 @@ def make_plots_save_data(max_f, mean_f, best_vectors, group, show):
 # Overall
 n_vars = (env.get_num_sensors()+1)*n_hidden_neurons + (n_hidden_neurons+1)*5
 # define population size
-pop_size = 5#0
+pop_size = 30#0
 # define lower and upper bounds for every dimension
 bounds = [-1.0, 1.0]
 # define number of iterations
-n_generations = 2#0
+n_generations = 100#0
 
 number_of_runs = 2
 
-groups = [[7]]#, [1,2,3]]
+groups = [[2,5,8]]#, [1,2,3]]
 
 EAs = [{"T": 10**4, "F_init": 0.5, "CR_init" : 0.9}]
 # assign empty lists
