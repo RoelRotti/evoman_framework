@@ -34,7 +34,7 @@ env = Environment(experiment_name=experiment_name,
 
 
 # Create a custom environment
-def create_env(group, randomm = "no"):
+def create_env(group, randomm = "yes"):
     if len(group) > 1: multim = "yes" 
     else: multim = "no" 
     # initializes environment with ai player using random controller, playing against static enemy
@@ -50,7 +50,7 @@ def create_env(group, randomm = "no"):
     return env
 
 # define objective function
-def obj(x, group, return_all=False, randomm = "no"):
+def obj(x, group, return_all=False, randomm = "yes"):
     # create env
     envv = create_env(group, randomm)
     # f = fitness, p = player life, e = enemy life, t = game run time
@@ -215,26 +215,32 @@ def make_plots_save_data(max_f, mean_f, best_vectors, group, show):
 
     ### BOX PLOTS ###
     all_enemies = [[1],[2],[3],[4],[5],[6],[7],[8]]
-    mean_gain = pd.DataFrame()
-    mean_gain["enemies"] = all_enemies
-    # test the best vector of each run
+    mean_gain = []
     for i in range(len(best_vectors)):
-        # test against each enemy
-        enemy_gain = []
-        for enemy in all_enemies:
-            # test 5 times
-            gains = []
-            for j in range(5):
-                # play agains enemy
-                stats = obj(best_vectors[i], enemy, return_all=True, randomm="yes")
-                # gain = player_life - enemy_life
-                gain = stats[1]-stats[2] 
-                gains.append(gain)
-            enemy_gain.append(sum(gains)/len(gains))
-        mean_gain["Run_" + str(i)] = enemy_gain
+        mean_gain[i] = pd.DataFrame()
+        mean_gain[i]["enemies"] = all_enemies
+
+    # test best vectors of each EA
+    for i in range(len(best_vectors)):
+        # test the best vector of each run
+        for j in range(len(best_vectors[i])):
+            # test against each enemy
+            enemy_gain = []
+            for enemy in all_enemies:
+                # test 5 times
+                gains = []
+                for j in range(5):
+                    # play agains enemy
+                    stats = obj(best_vectors[i][j], enemy, return_all=True, randomm="no")
+                    # gain = player_life - enemy_life
+                    gain = stats[1]-stats[2] 
+                    gains.append(gain)
+                enemy_gain.append(sum(gains)/len(gains))
+            mean_gain[i]["Run_" + str(i)] = enemy_gain
         
     # calculate mean of each 
-    mean_gain["mean"] = mean_gain.mean(axis = 1)
+    for i in range(len(best_vectors)):
+        mean_gain[i]["mean"] = mean_gain.mean(axis = 1)
     # plot boxplot
     sns.boxplot(y=mean_gain["mean"]).set_title(f"Gain of best genome. Group {group}, {number_of_runs} runs, {n_generations} gens, pop size {pop_size}") 
     plt.ylabel("Gain")
@@ -248,17 +254,17 @@ def make_plots_save_data(max_f, mean_f, best_vectors, group, show):
 # Overall
 n_vars = (env.get_num_sensors()+1)*n_hidden_neurons + (n_hidden_neurons+1)*5
 # define population size
-pop_size = 30#0
+pop_size = 5#0
 # define lower and upper bounds for every dimension
 bounds = [-1.0, 1.0]
 # define number of iterations
-n_generations = 100#0
+n_generations = 2#0
 
 number_of_runs = 2
 
 groups = [[2,5]]#, [1,2,3]]
 
-EAs = [{"T": 10**4, "F_init": 0.5, "CR_init" : 0.9}, {"T": 0, "F_init": 0.5, "CR_init" : 0.9}]
+EAs = [{"T": 10**4, "F_init": 0.5, "CR_init" : 0.9}]#, {"T": 0, "F_init": 0.5, "CR_init" : 0.9}]
 # assign empty lists
 best_vectors = []
 best_fitnesses_boxplot = []
