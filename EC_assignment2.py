@@ -248,11 +248,11 @@ def make_plots_save_data(max_f, mean_f, best_vectors, group, show):
 # Overall
 n_vars = (env.get_num_sensors()+1)*n_hidden_neurons + (n_hidden_neurons+1)*5
 # define population size
-pop_size = 5#0
+pop_size = 30#0
 # define lower and upper bounds for every dimension
 bounds = [-1.0, 1.0]
 # define number of iterations
-n_generations = 2#0
+n_generations = 100#0
 
 number_of_runs = 2
 
