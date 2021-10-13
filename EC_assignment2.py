@@ -217,7 +217,7 @@ def make_plots_save_data(max_f, mean_f, best_vectors, group, show):
     all_enemies = [[1],[2],[3],[4],[5],[6],[7],[8]]
     mean_gain = []
     for i in range(len(best_vectors)):
-        mean_gain[i] = pd.DataFrame()
+        mean_gain.append(pd.DataFrame())
         mean_gain[i]["enemies"] = all_enemies
 
     # test best vectors of each EA
@@ -229,7 +229,7 @@ def make_plots_save_data(max_f, mean_f, best_vectors, group, show):
             for enemy in all_enemies:
                 # test 5 times
                 gains = []
-                for j in range(5):
+                for k in range(5):
                     # play agains enemy
                     stats = obj(best_vectors[i][j], enemy, return_all=True, randomm="no")
                     # gain = player_life - enemy_life
@@ -237,16 +237,29 @@ def make_plots_save_data(max_f, mean_f, best_vectors, group, show):
                     gains.append(gain)
                 enemy_gain.append(sum(gains)/len(gains))
             mean_gain[i]["Run_" + str(i)] = enemy_gain
-        
+
     # calculate mean of each 
     for i in range(len(best_vectors)):
-        mean_gain[i]["mean"] = mean_gain.mean(axis = 1)
+        mean_gain[i]["mean"] = mean_gain[i].mean(axis = 1)
+        mean_gain[i].rename(columns = {'mean':'mean'+str(i)}, inplace = True)
+
+    if len(best_vectors) > 1 :        
+        dat = pd.concat([mean_gain[0]["mean0"], mean_gain[1]["mean1"]], axis=1)
+        dat = pd.melt(dat)
+        sns.boxplot(data=dat, x="variable", y = "value").set_title(f"Gain of best genome. Group {group}, {number_of_runs} runs, {n_generations} gens, pop size {pop_size}") 
+        plt.xlabel("EA's")
+        plt.xticks([0, 1], [EAs[0], EAs[1]])
+    else:   
+        dat = mean_gain[0]["mean0"]
+        sns.boxplot(data=dat).set_title(f"Gain of best genome. Group {group}, {number_of_runs} runs, {n_generations} gens, pop size {pop_size}") 
+        plt.xlabel("EA")
+        plt.xticks([0], [EAs[0]])
     # plot boxplot
-    sns.boxplot(y=mean_gain["mean"]).set_title(f"Gain of best genome. Group {group}, {number_of_runs} runs, {n_generations} gens, pop size {pop_size}") 
     plt.ylabel("Gain")
-    plt.savefig(f"EC_assignment2/group{group}_boxplot.pdf", dpi=300, bbox_inches='tight')
+    plt.savefig(f"EC_assignment2/group{group}_boxplot_EAs_{EAs}.pdf", dpi=300, bbox_inches='tight')
+    for i in range(len(best_vectors)):
+        mean_gain[i].to_csv(f'EC_assignment2/DF_mean_gain_boxplot_group{group}_EA{EAs[i]}.txt', sep='\t')
     if show: plt.show()
-    mean_gain.to_csv(f'EC_assignment2/DF_mean_gain_boxplot_group{group}.txt', sep='\t')
 
 
 ## VARIABLES
@@ -254,7 +267,7 @@ def make_plots_save_data(max_f, mean_f, best_vectors, group, show):
 # Overall
 n_vars = (env.get_num_sensors()+1)*n_hidden_neurons + (n_hidden_neurons+1)*5
 # define population size
-pop_size = 5#0
+pop_size = 4#0
 # define lower and upper bounds for every dimension
 bounds = [-1.0, 1.0]
 # define number of iterations
@@ -296,5 +309,5 @@ for group in groups:
             max_f[i]["Run_"+str(j)] = solution[3]
             mean_f[i]["Run_"+str(j)] = solution[4]
 
-    make_plots_save_data(max_f, mean_f, best_vectors[i], group, show=True)
+    make_plots_save_data(max_f, mean_f, best_vectors, group, show=True)
 
