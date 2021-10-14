@@ -176,6 +176,11 @@ def differential_evolution(pop_size, bounds, n_generations, group, EA):
 def make_plots_save_data(max_f, mean_f, best_vectors, group, show):
 
     ### LINE PLOTS ###
+    fig_number = 0
+    if len(groups) > 1:
+        if group == groups[1]:
+            fig_number = 2
+    plt.figure(fig_number)
 
     colors = ["red", "orange", "blue", "green"]
 
@@ -211,55 +216,102 @@ def make_plots_save_data(max_f, mean_f, best_vectors, group, show):
     plt.savefig(f"EC_assignment2/group{group}_lineplot{EAs}.pdf", dpi=300, bbox_inches='tight')
     if show:    plt.show()
 
-    #TODO: boxplots for multiple EAs
-
     ### BOX PLOTS ###
+    plt.figure(fig_number+1)
     all_enemies = [[1],[2],[3],[4],[5],[6],[7],[8]]
     mean_gain = []
+    p_life = []
+    e_life = []
     for i in range(len(best_vectors)):
         mean_gain.append(pd.DataFrame())
-        mean_gain[i]["enemies"] = all_enemies
+        p_life.append(pd.DataFrame())
+        e_life.append(pd.DataFrame())
+        #mean_gain[i]["enemies"] = all_enemies
 
     # test best vectors of each EA
     for i in range(len(best_vectors)):
         # test the best vector of each run
         for j in range(len(best_vectors[i])):
             # test against each enemy
+            player_life = []
+            enemy_life = []
             enemy_gain = []
             for enemy in all_enemies:
                 # test 5 times
+                play_life = []
+                en_life = []
                 gains = []
                 for k in range(5):
                     # play agains enemy
                     stats = obj(best_vectors[i][j], enemy, return_all=True, randomm="no")
                     # gain = player_life - enemy_life
                     gain = stats[1]-stats[2] 
+                    play_life.append(stats[1])
+                    en_life.append(stats[2])
                     gains.append(gain)
+                player_life.append(sum(play_life)/len(play_life))
+                enemy_life.append(sum(en_life)/len(en_life))
                 enemy_gain.append(sum(gains)/len(gains))
-            mean_gain[i]["Run_" + str(i)] = enemy_gain
+            p_life[i][j] = player_life
+            e_life[i][j] = enemy_life
+            mean_gain[i][j] = enemy_gain
+
+
+
+    max_gain = -np.inf
 
     # calculate mean of each 
     for i in range(len(best_vectors)):
-        mean_gain[i]["mean"] = mean_gain[i].mean(axis = 1)
-        mean_gain[i].rename(columns = {'mean':'mean'+str(i)}, inplace = True)
 
-    if len(best_vectors) > 1 :        
-        dat = pd.concat([mean_gain[0]["mean0"], mean_gain[1]["mean1"]], axis=1)
+        #TODO: do column mean, not row mean
+
+        #mean_gain[i]["mean"] = mean_gain[i].mean(axis = 1)
+        #mean_gain[i].rename(columns = {'mean':'mean'+str(i)}, inplace = True)
+        mean_gain[i].loc['mean'] = mean_gain[i].mean()
+
+        max_column = mean_gain[i].loc['mean'].idxmax()
+        max_g = mean_gain[i][max_column].loc['mean']
+        if max_g > max_gain:
+            max_gain = max_g
+            max_vector = max_column
+            ea_i = i
+
+    real_best_vector = best_vectors[ea_i][max_vector]
+    np.savetxt(f'EC_assignment2/real_best_vector{group}_EA{EAs}.txt',real_best_vector)
+
+    np.savetxt(f'EC_assignment2/best_gain{group}_EA{EAs}.txt',mean_gain[ea_i][max_column])
+    np.savetxt(f'EC_assignment2/best_player_life{group}_EA{EAs}.txt',p_life[ea_i][max_column])
+    np.savetxt(f'EC_assignment2/best_enemy_life{group}_EA{EAs}.txt',e_life[ea_i][max_column])
+
+    print("ea_i = ", ea_i)
+    print("max_column = ", max_column)
+
+    # TODO: Save best best vector
+
+    for i in range(len(best_vectors)):
+        mean_gain[i].to_csv(f'EC_assignment2/DF_mean_gain_boxplot_group{group}_EA{EAs[i]}.txt', sep='\t')
+
+    if len(best_vectors) > 1 :    
+        for i in range(len(best_vectors)):
+            mean_gain[i].rename(index = {'mean':'mean'+str(i)}, inplace = True)
+        dat = pd.concat([mean_gain[0].loc['mean0'], mean_gain[1].loc["mean1"]], axis=1)
         dat = pd.melt(dat)
         sns.boxplot(data=dat, x="variable", y = "value").set_title(f"Gain of best genome. Group {group}, {number_of_runs} runs, {n_generations} gens, pop size {pop_size}") 
         plt.xlabel("EA's")
         plt.xticks([0, 1], [EAs[0], EAs[1]])
     else:   
-        dat = mean_gain[0]["mean0"]
+        dat = mean_gain[0].loc['mean']
         sns.boxplot(data=dat).set_title(f"Gain of best genome. Group {group}, {number_of_runs} runs, {n_generations} gens, pop size {pop_size}") 
         plt.xlabel("EA")
         plt.xticks([0], [EAs[0]])
     # plot boxplot
     plt.ylabel("Gain")
     plt.savefig(f"EC_assignment2/group{group}_boxplot_EAs_{EAs}.pdf", dpi=300, bbox_inches='tight')
-    for i in range(len(best_vectors)):
-        mean_gain[i].to_csv(f'EC_assignment2/DF_mean_gain_boxplot_group{group}_EA{EAs[i]}.txt', sep='\t')
+    
     if show: plt.show()
+
+    # Add a table containing the average (of 5 repetitions) energy points of player and enemy (for each of all enemies) 
+    # for your VERY best solution (only one of the[10+10]*2). This is the solution you will submit to the competition.
 
 
 ## VARIABLES
@@ -267,17 +319,17 @@ def make_plots_save_data(max_f, mean_f, best_vectors, group, show):
 # Overall
 n_vars = (env.get_num_sensors()+1)*n_hidden_neurons + (n_hidden_neurons+1)*5
 # define population size
-pop_size = 4#0
+pop_size = 30
 # define lower and upper bounds for every dimension
 bounds = [-1.0, 1.0]
 # define number of iterations
-n_generations = 2#0
+n_generations = 25
 
-number_of_runs = 2
+number_of_runs = 10
 
-groups = [[2,5]]#, [1,2,3]]
+groups = [[2,5,8],[4,6,7]]
 
-EAs = [{"T": 10**4, "F_init": 0.5, "CR_init" : 0.9}]#, {"T": 0, "F_init": 0.5, "CR_init" : 0.9}]
+EAs = [{"T": 10**4, "F_init": 0.5, "CR_init" : 0.9}, {"T": 0, "F_init": 0.5, "CR_init" : 0.9}]
 # assign empty lists
 best_vectors = []
 best_fitnesses_boxplot = []
@@ -309,5 +361,5 @@ for group in groups:
             max_f[i]["Run_"+str(j)] = solution[3]
             mean_f[i]["Run_"+str(j)] = solution[4]
 
-    make_plots_save_data(max_f, mean_f, best_vectors, group, show=True)
+    make_plots_save_data(max_f, mean_f, best_vectors, group, show=False)
 
